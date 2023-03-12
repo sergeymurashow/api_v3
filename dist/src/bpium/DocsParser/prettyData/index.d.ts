@@ -1,0 +1,12 @@
+export declare const bookingId: (data: string) => string;
+export declare const applicationDate: (data: string) => string;
+export declare const contract: (data: string) => string;
+export declare const voyageNumber: (data: string) => string;
+export declare const containersCount: (data: string) => number;
+export declare const containersMension: (data: string) => string;
+export declare const containerType: (data: string) => string;
+export declare const gWeight: (data: string | number) => string;
+export declare const shipper: (data: string) => string;
+export declare const port: (data: string) => string;
+export declare const freight: (data: string) => string;
+export declare const owner: (data: string) => string;

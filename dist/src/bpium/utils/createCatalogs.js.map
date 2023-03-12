@@ -1,0 +1,1 @@
+{"version":3,"file":"createCatalogs.js","sourceRoot":"","sources":["../../../../src/bpium/utils/createCatalogs.ts"],"names":[],"mappings":";;;;;AAAA,0CAAmB;AAGnB,SAAwB,cAAc,CAAC,GAAW;IACjD,IAAI;QAAE,YAAE,CAAC,WAAW,CAAC,GAAG,CAAC,CAAA;KAAE;IAC3B,OAAM,CAAC,EAAE;QACR,YAAE,CAAC,SAAS,CAAC,GAAG,EAAE,EAAE,SAAS,EAAE,IAAI,EAAE,CAAC,CAAA;KACtC;AACF,CAAC;AALD,iCAKC;AAED,iDAAiD"}
