@@ -1,6 +1,6 @@
-import { Booking, matrix, ParseError, Container, Headers } from '../../types'
+import { Booking, Matrix, ParseError, Container, Headers } from '../../types'
 import { ErrorsCollector } from '../../../../src/ErrorCollector'
-import * as parsingTools from '../prettyData'
+import * as parsingTools from './prettyData'
 import containersParse from './getContainersFromReport'
 
 export default function getBookingFromReport(data: Headers.Contract): { data: Booking, errors: string[] } {

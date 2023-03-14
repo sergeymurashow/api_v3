@@ -7,7 +7,7 @@ export type Obj = {
 	get?(): any
 }
 
-export type matrix = Obj
+export type Matrix = { row: string, value: string, name: string}
 
 export type Params = {
 	fileName: string,

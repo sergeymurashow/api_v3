@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import DocumentsParser from "../DocumentsParser"
-import { Booking, matrix, ParseError, Container, Headers } from '../../types'
+import { Booking, Matrix, ParseError, Container, Headers } from '../../types'
 import FindTableTitle from '../FindTableTitle'
 import getBookingFromReport from './getBookingFromReport'
 import { ErrorsCollector } from '../../../../src/ErrorCollector'
@@ -34,9 +34,12 @@ export default class ReportParser extends DocumentsParser {
 					console.log(f)
 				}
 			})
-			.forEach(fo => {
+			.forEach((fo, fi, fa) => {
 				let parsedBooking: ParseResult
 				try {
+					if ( fo.BOOKINGNO === 'INT00004755' ) {
+						let t
+					}
 					parsedBooking = getBookingFromReport(fo) as ParseResult
 					if( parsedBooking.errors ) {
 
@@ -51,4 +54,4 @@ export default class ReportParser extends DocumentsParser {
 	}
 }
 
-// let test = new ReportParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/fuckingTestReport.xlsx').parsed
+// let test = new ReportParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Report_short.xlsx').parsed

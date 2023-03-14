@@ -1,21 +1,6 @@
-import { Headers } from "../../types"
+import { Headers, Matrix } from "../../types"
+import _ from 'lodash'
 
-// let str = [{
-// 	BLNO: "sdlfkjsdkjf",
-// 	PKGS: "XIN LONG YUN 55I07N55",
-// 	GOODS: "DISCH PORT",
-// 	SHIPPER: "VOSTOCHNY,RUSSIA",
-// 	CONTAINERNO: "LOADING PORT",
-// 	SEAL: "NINGBO,CHINA",
-// }, {
-// 	BLNO: "SHIP NAME VOYAGE",
-// 	QWEQWEwq: '',
-// 	PKGS: "XIN LONG YUN 55I07N55",
-// 	GOODS: "DISCH PORT",
-// 	SHIPPER: "VOSTOCHNY,RUSSIA",
-// 	CONTAINERNO: "LOADING PORT",
-// 	SEAL: "NINGBO,CHINA",
-// }]
 
 const regs = {
 	shipnameReg: new RegExp(/SHIP\s*NAME\s*VOYAGE/),
@@ -23,7 +8,7 @@ const regs = {
 	loadingPortReg: new RegExp(/LOADING\s*PORT/)
 }
 
-function findVoyageString(str: Headers.Manifest[]): Headers.Manifest {
+function findVoyageString(str): Headers.Manifest {
 	return str.find(fi => {
 		let fiStr = Object.values(fi).join(' | ')
 		return regs.shipnameReg.test(fiStr)
@@ -43,11 +28,20 @@ function getValueByReg(strObj: Headers.Manifest, reg: RegExp): string {
 	}
 }
 
-interface manifestGetVoyagePort {
-	table: Headers.Manifest
+function makeInfoString( table: ManifestGetVoyagePort ) {
+	let rows = table.map( m => {
+		return m.row
+	})
+	rows = _.uniq( rows )
+	return rows.map( m => {
+		let values = table.filter( fi => fi.row === m)
+		return values.map( m => m.value )
+	})
 }
 
-interface manifestGetVoyagePortOut {
+export type ManifestGetVoyagePort = Matrix[]
+
+interface ManifestGetVoyagePortOut {
 	vesselVoyage: string
 	portCountry: string
 	loadingPort: string
@@ -60,8 +54,8 @@ interface manifestGetVoyagePortOut {
  * @return vesselVoyage and portCountry
  * 
  */
-export default function manifestGetVoyagePort(table: Headers.Manifest[]): manifestGetVoyagePortOut {
-	const stringWithShipname = findVoyageString(table)
+export default function manifestGetVoyagePort(table: ManifestGetVoyagePort ): ManifestGetVoyagePortOut {
+	const stringWithShipname = findVoyageString(makeInfoString( table ))
 	const vesselVoyage = getValueByReg(stringWithShipname, regs.shipnameReg)
 	const portCountry = getValueByReg(stringWithShipname, regs.dischPortReg)
 	const loadingPort = getValueByReg(stringWithShipname, regs.loadingPortReg)

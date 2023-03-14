@@ -9,7 +9,7 @@ export default interface DocumentsParser {
 		filePath: string,
 	)
 	fixVoyageNumber: DocumentsParser.FixVoyageNumber
-	bigSheet: DocumentsParser.matrix[]
+	bigSheet: DocumentsParser.Matrix[]
 	testSheet?: Obj
 	filePath?: string
 
@@ -21,7 +21,7 @@ export declare namespace DocumentsParser {
 			voyageNumber: string
 		)
 	}
-	export type matrix = Obj
+	export type Matrix = { row: string, value: string, name: string}
 }
 
 

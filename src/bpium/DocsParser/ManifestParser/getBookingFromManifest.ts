@@ -1,8 +1,8 @@
 import { result } from "lodash"
 import { Headers, Booking, ParseError } from "src/bpium/types"
 import getContainerFromManifest from "./getContainersFromManifest"
-import * as parsingTools from '../prettyData'
-import { ErrorsCollector } from "src/ErrorCollector"
+import * as parsingTools from '../ReportParser/prettyData'
+import { ErrorsCollector } from "../../../../src/ErrorCollector"
 
 export default function getBookingFromManifest(data: Headers.Manifest, voyageNumber: string): Booking | ParseError {
 	const Errors = new ErrorsCollector('Manifest errors')

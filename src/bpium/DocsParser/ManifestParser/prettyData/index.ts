@@ -1,4 +1,4 @@
-import utils from "../../utils"
+import utils from "../../../utils"
 import _ from 'lodash'
 
 import dayjs from 'dayjs'
@@ -32,17 +32,6 @@ export const applicationDate = (data: string) => {
 	}
 }
 
-export const contract = (data: string) => {
-	if (!data) throw new Error('Wrong contract number!')
-	try {
-		data = utils.transcribeContractNumber(utils.clearString(data))
-	} catch (e) {
-		throw new Error(`Contract Error: ${e}`)
-	}
-	const contractNumber = data.replace(/[^0-9]+/, '')
-	return contractNumber
-}
-
 export const voyageNumber = (data: string) => {
 	data = utils.fixVoyageNumber(data)
 	if (data) {
@@ -50,16 +39,6 @@ export const voyageNumber = (data: string) => {
 	} else {
 		throw new Error('Wrong voyage number')
 	}
-}
-
-export const containersCount = (data: string) => {
-	const result = +utils.clearString(data)
-	if (result) {
-		return result
-	} else {
-		throw new Error('Wrong number of containers')
-	}
-
 }
 
 export const containersMension = (data: string) => {
@@ -144,6 +123,7 @@ function makeDate(chinaDate: string): string {
 		if (/\d{4}\/\d{1,2}\/\d{1,2}/.test(cd)) return 'YYYY/MM/DD'
 	}
 	let fixedDate = dayjs((chinaDate), dateFormat(chinaDate)).format('YYYY-MM-DDT00:00:00')
+	if( !dayjs(fixedDate).isValid() ) throw new Error( 'Wrong application date!' )
 	return fixedDate
 }
 
