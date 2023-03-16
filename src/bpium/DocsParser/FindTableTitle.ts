@@ -1,4 +1,4 @@
-import { Obj } from "../types";
+import { Obj } from "../types/"
 import samples, { DocType, Sample } from './samples'
 import { Headers } from "../types";
 

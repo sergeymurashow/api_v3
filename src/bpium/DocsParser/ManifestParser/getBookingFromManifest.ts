@@ -1,5 +1,5 @@
 import { result } from "lodash"
-import { Headers, Booking, ParseError } from "src/bpium/types"
+import { Headers, Booking, ParseError } from "../../../../src/bpium/types"
 import getContainerFromManifest from "./getContainersFromManifest"
 import * as parsingTools from '../ReportParser/prettyData'
 import { ErrorsCollector } from "../../../../src/ErrorCollector"

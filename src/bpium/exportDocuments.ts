@@ -4,7 +4,7 @@ import Path from 'path'
 
 import ParseExcel from './DocsParser'
 
-export default async function ModuleRun(data) {
+export default async function exportDocuments(data) {
 
 	let dir = Path.resolve(__dirname, 'tmp')
 	utils.createCatalogs(dir)

@@ -2,7 +2,7 @@
 import Path from 'path'
 
 // Interfaces
-import Runner, { Params } from "./runner";
+import Runner, { Params } from "./Runner";
 
 /**
  * @constructor

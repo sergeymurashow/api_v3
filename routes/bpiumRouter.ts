@@ -1,7 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { BpiumProcessRunner } from '../process/bpium'
+import { BpiumProcessRunner } from '../process/Bpium'
+import exportDocuments from '../src/bpium/ExportDocuments'
 
 export const bpiumRouter = express.Router()
 const jsonParser = bodyParser.json()
@@ -25,13 +26,13 @@ const jsonParser = bodyParser.json()
 bpiumRouter
 	.route('/documents/export')
 	.post(jsonParser, async (req, res) => {
-		const BPR = new BpiumProcessRunner({
-			moduleName: 'DocsProcess',
-			data: req.body,
-			async: true
-		})
+		// const BPR = new BpiumProcessRunner({
+		// 	moduleName: 'DocsProcess',
+		// 	data: req.body,
+		// 	async: true
+		// })
 		try {
-			const result = await BPR.run()
+			const result = await exportDocuments(req.body)
 			res.status(200).send(result)
 		} catch (e) {
 			res.status(500).json(e)
