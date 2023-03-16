@@ -1,8 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { BpiumProcessRunner } from '../process/Bpium'
-import exportDocuments from '../src/bpium/ExportDocuments'
+import exportDocuments from '../src/bpium/exportDocuments'
 
 export const bpiumRouter = express.Router()
 const jsonParser = bodyParser.json()
