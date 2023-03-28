@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  bpium_api: 
+    build: .
+    ports: 
+      - 8080:8080
+    env_file:
+      - config.env
