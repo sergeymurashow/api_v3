@@ -41,9 +41,7 @@ export default class ReportParser extends DocumentsParser {
 						let t
 					}
 					parsedBooking = getBookingFromReport(fo) as ParseResult
-					if( parsedBooking.errors ) {
 
-					}
 					collect.push( parsedBooking )
 				} catch ( e ) {
 					console.error( e )

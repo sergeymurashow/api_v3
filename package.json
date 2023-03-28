@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run clean && tsc",
-    "start": "npm run build && node ./dist/index.js",
+    "build_and_start": "npm run build && node ./build/index.js",
     "mon": "nodemon index.ts",
-    "clean": "rm -R ./dist || pwd"
+    "clean": "rm -R ./build || pwd"
   },
   "keywords": [],
   "author": "",

@@ -45,7 +45,7 @@ export default class ManifestParser extends DocumentsParser {
 				tmp = fo
 				collect[tmp.BLNO] = getBookingFromManifest(fo, voyage)
 			} else if (tmp && fo.CONTAINERNO) {
-				// if (fo.BLNO) collect[tmp.BLNO].hs = fo.BLNO
+				if (fo.BLNO) collect[tmp.BLNO].hs = fo.BLNO
 
 				collect[tmp.BLNO]['containers'].push(
 					getContainerFromManifest(Object.assign({}, tmp, fo))
@@ -57,6 +57,6 @@ export default class ManifestParser extends DocumentsParser {
 	}
 }
 
-// let test = new ManifestParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Manifest_XINGANG_short.xls').parsed
+let test = new ManifestParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Manifest_XINGANG_short.xls').parsed
 
 

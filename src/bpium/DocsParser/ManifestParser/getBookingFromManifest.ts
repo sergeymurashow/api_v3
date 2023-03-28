@@ -4,7 +4,7 @@ import getContainerFromManifest from "./getContainersFromManifest"
 import * as parsingTools from '../ReportParser/prettyData'
 import { ErrorsCollector } from "../../../../src/ErrorCollector"
 
-export default function getBookingFromManifest(data: Headers.Manifest, voyageNumber: string): Booking | ParseError {
+export default function getBookingFromManifest(data: Headers.Manifest, voyageNumber: string): { data: Booking, errors: string[] } {
 	const Errors = new ErrorsCollector('Manifest errors')
 
 	data.MENSION = data.MENSION.toString().replace(/[^\d]/g, '')
@@ -50,7 +50,7 @@ export default function getBookingFromManifest(data: Headers.Manifest, voyageNum
 		Errors.errLog(e.message)
 	}
 	try {
-		Object.assign(result, { notifyParty: data.NOTIFYPARTY })
+		Object.assign(result, { notifyParty: data.PARTY })
 	} catch (e) {
 		Errors.errLog(e.message)
 	}
@@ -102,7 +102,7 @@ export default function getBookingFromManifest(data: Headers.Manifest, voyageNum
 	if( Errors.getErrors().length ) {
 		// return Errors.getErrors()
 	} 
-	return result
+	return { data: result, errors: Errors.getErrors() }
 
 	// hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
 

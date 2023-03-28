@@ -1,8 +1,13 @@
 import xls from 'xlsx'
 import _ from 'lodash'
 
-import { Obj } from '../types/index'
 import utils from '../utils/index'
+import { Booking, Container, Obj, ParseError } from '../types'
+
+type ParseResult = {
+	data: Booking,
+	errors: string[]
+}
 
 export default interface DocumentsParser {
 	constructor(
@@ -12,6 +17,7 @@ export default interface DocumentsParser {
 	bigSheet: DocumentsParser.Matrix[]
 	testSheet?: Obj
 	filePath?: string
+	get parsed(): ParseResult[]
 
 }
 
@@ -23,6 +29,7 @@ export declare namespace DocumentsParser {
 	}
 	export type Matrix = { row: string, value: string, name: string}
 }
+
 
 
 export default class DocumentsParser {
