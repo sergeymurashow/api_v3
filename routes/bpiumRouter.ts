@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import exportDocuments from '../src/bpium/exportDocuments'
+import DocsParser from '../src/bpium/DocsParser'
 
 export const bpiumRouter = express.Router()
 const jsonParser = bodyParser.json()
@@ -31,7 +31,7 @@ bpiumRouter
 		// 	async: true
 		// })
 		try {
-			const result = await exportDocuments(req.body)
+			const result = await DocsParser(req.body)
 			res.status(200).send(result)
 		} catch (e) {
 			res.status(500).json(e)

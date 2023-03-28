@@ -8,27 +8,25 @@ export default interface DocumentsParser {
 	constructor(
 		filePath: string,
 	)
-	fixVoyageNumber: DocumentsParser.FixVoyageNumber
-	bigSheet: DocumentsParser.Matrix[]
+	fixVoyageNumber: string
+	bigSheet: { row: string, value: string, name: string}[]
 	testSheet?: Obj
 	filePath?: string
 
 }
 
-export declare namespace DocumentsParser {
-	export interface FixVoyageNumber {
-		(
-			voyageNumber: string
-		)
-	}
-	export type Matrix = { row: string, value: string, name: string}
-}
+// export declare namespace DocumentsParser {
+// 	export interface FixVoyageNumber {
+// 		(
+// 			voyageNumber: string
+// 		)
+// 	}
+// 	export type Matrix = { row: string, value: string, name: string}
+// }
 
 
-export default class DocumentsParser {
-	fixVoyageNumber: DocumentsParser.FixVoyageNumber
+export default abstract class DocumentsParser {
 	constructor(filePath: string) {
-		this.fixVoyageNumber = utils.fixVoyageNumber
 		let sheets = xls.readFile(filePath)
 		let sheet = {}
 		sheets.Workbook.Sheets.forEach(fo => {
@@ -47,9 +45,7 @@ export default class DocumentsParser {
 			let [row, col, value] = [i.replace(/[a-zA-Z]+/, ''), i.replace(/\d+/, ''), sheet[i]['w']]
 			table.push({ row, col, value })
 		}
-
 		return table
-
 	}
 }
 

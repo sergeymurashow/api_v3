@@ -1,7 +1,6 @@
 import Counter from "./counter"
 
-export default function fixVoyageNumber (voyageNumberString: string): string {
-	// let regVoyage = /(?<=[\s\/])[iI].*[a-zA-Z0-9]+/gm
+export default function getVoyageNumber (voyageNumberString: string): string {
 	let regVoyage = /([iI]\d+[a-zA-Z0-9]+|INT\d*\w*)/
 	let regNumber = /(\d+)/
 	let voyageNum
@@ -16,5 +15,3 @@ export default function fixVoyageNumber (voyageNumberString: string): string {
 	})
 	return newVoyageNum
 }
-
-// let t = fixVoyageNumber('XIN LONG YUN 55I07N55')

@@ -1,19 +1,15 @@
 import _ from 'lodash'
-import DocumentsParser from "../DocumentsParser"
-import { Booking, Matrix, ParseError, Container, Headers } from '../../types'
-import FindTableTitle from '../FindTableTitle'
-import getBookingFromReport from './getBookingFromReport'
-import { ErrorsCollector } from '../../../../src/ErrorCollector'
+import DocumentsParser from "../DocumentsParser.abstract"
+import { Booking, Headers } from '../../types'
+import FindTableTitle from '../FindTableTitle.class'
+import GetBookingFromReport from './GetBookingFromReport.class'
 
 export default interface ReportParser {
 	table: Headers.Contract[]
 	startIndex: number
 }
 
-type ParseResult = {
-	data: Booking,
-	errors: string[]
-}
+type ParseResult = Booking & {Errors: Array<string>}
 
 export default class ReportParser extends DocumentsParser {
 	constructor(params) {
@@ -23,7 +19,6 @@ export default class ReportParser extends DocumentsParser {
 		this.startIndex = renamedTable.startIndex
 	}
 	get parsed(): ParseResult[] {
-		const Errors = new ErrorsCollector('This report errors')
 		const collect: ParseResult[] = []
 		this.table
 			.filter(f => {
@@ -37,11 +32,9 @@ export default class ReportParser extends DocumentsParser {
 			.forEach((fo, fi, fa) => {
 				let parsedBooking: ParseResult
 				try {
-					if ( fo.BOOKINGNO === 'INT00004755' ) {
-						let t
-					}
-					parsedBooking = getBookingFromReport(fo) as ParseResult
-					if( parsedBooking.errors ) {
+					let getBooking = new GetBookingFromReport( fo )
+					parsedBooking = getBooking.booking
+					if( parsedBooking.Errors ) {
 
 					}
 					collect.push( parsedBooking )

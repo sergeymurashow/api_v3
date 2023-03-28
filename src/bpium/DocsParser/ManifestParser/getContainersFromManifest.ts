@@ -18,7 +18,8 @@ export default function getContainerFromManifest(data: Headers.Manifest): Contai
 			cbm: data.CBM,
 			freight: data.FREIGHT,
 			owner: data.CONTAINEROWNER ? data.CONTAINEROWNER.toString().replace(/\t+/g, '') : data.CONTAINEROWNER,
-			type: data.MENSION.toString().replace(/[^\d]/g, '') + data.TYPE.toString().replace(/[^a-zA-Z]/g, '')
+			type: data.TYPE.toString().replace(/[^a-zA-Z]/g, ''),
+			mension: data.MENSION.toString().replace(/[^\d]/g, '')
 		}
 	} catch (e) {
 		console.log(e)

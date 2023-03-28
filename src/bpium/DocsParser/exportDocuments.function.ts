@@ -1,8 +1,7 @@
-import utils from './utils'
-import { Obj } from './types'
+import utils from '../utils'
 import Path from 'path'
 
-import ParseExcel from './DocsParser'
+import ParseExcel from './ParseExcel.class'
 
 export default async function exportDocuments(data) {
 
@@ -17,10 +16,10 @@ export default async function exportDocuments(data) {
 		await utils.downloadFiles(i)
 	}
 
-	let result: Obj[] = []
+	let result: {[key: string | number ]: any}[] = []
 	for (let j in data) {
 		let i = data[j]
-		result = result.concat(new ParseExcel(i.fileName, i.docType).get())
+		result = result.concat(new ParseExcel(i.fileName, i.docType).booking)
 	}
 	return result
 }

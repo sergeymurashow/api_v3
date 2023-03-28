@@ -44,7 +44,7 @@ export const contract = (data: string) => {
 }
 
 export const voyageNumber = (data: string) => {
-	data = utils.fixVoyageNumber(data)
+	data = utils.getVoyageNumber(data)
 	if (data) {
 		return data
 	} else {

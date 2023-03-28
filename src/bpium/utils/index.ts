@@ -1,4 +1,4 @@
-import fixVoyageNumber from "./fixVoyageNumber";
+import getVoyageNumber from "./getVoyageNumber";
 import transcribeContractNumber from "./transcribeContractNumber";
 import clearString from "./clearString";
 import createCatalogs from './createCatalogs'
@@ -8,7 +8,7 @@ import downloadFiles from './downloadFiles'
 import Counter from "./counter";
 
 export default {
-	fixVoyageNumber,
+	getVoyageNumber,
 	transcribeContractNumber,
 	clearString,
 	createCatalogs,

@@ -1,9 +1,5 @@
-import { Obj } from "../types/"
+import { Obj } from "../types"
 import samples, { DocType, Sample } from './samples'
-import { Headers } from "../types";
-
-import Path from 'path'
-import DocumentParser from './DocumentsParser_old'
 import _ from "lodash";
 
 

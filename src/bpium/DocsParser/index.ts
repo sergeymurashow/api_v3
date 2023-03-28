@@ -1,2 +1,3 @@
-import ParseExcel from './ParseExcel'
-export default ParseExcel
+import exportDocuments from "./exportDocuments.function"
+const DocsParser = exportDocuments 
+export default DocsParser

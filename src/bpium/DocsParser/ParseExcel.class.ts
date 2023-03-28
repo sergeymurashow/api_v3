@@ -3,7 +3,7 @@ import _ from 'lodash'
 //*
 
 //* Interfaces
-import { Booking, Contract, Obj, Container, Params, record, ParseError } from '../types'
+import { Booking, ParseError } from '../types'
 //*
 
 //* Indoor files
@@ -21,7 +21,7 @@ export default class ParseExcel {
 		this.fileName = fileName
 		this.docType = docType
 	}
-	get (): (Booking | ParseError)[] {
+	get booking(): (Booking | ParseError)[] {
 		switch (this.docType) {
 			case 'manifest':
 				return new ManifestParser( this.fileName ).parsed.map( m => Object.assign(m, {fileName: this.fileName}))
