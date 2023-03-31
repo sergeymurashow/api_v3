@@ -73,7 +73,7 @@ export default class ManifestParser extends DocumentsParser {
 			return new GetContainerFromManifest(result).info
 		}
 
-		const collect = []
+		const collect: Booking[] = []
 		let addrInCollectArray: number
 		this.table.forEach(fo => {
 			if (fo.BLNO) addrInCollectArray = collect.push(
@@ -103,7 +103,12 @@ export default class ManifestParser extends DocumentsParser {
 			}
 		}
 
-		return this.splitByBooking()
+		const parsedManifest = this.splitByBooking()
+		return parsedManifest.map( m => {
+			let { mension, type } = getMensionAndType(m.containers)
+			Object.assign( m, { mension, type })
+			return m
+		})
 			
 
 		// let collect: Booking = {}
