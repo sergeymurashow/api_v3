@@ -5,9 +5,8 @@ import FindTableTitle from '../FindTableTitle.class'
 import { Booking, Container, Headers } from '../../types'
 import manifestGetVoyagePort, { ManifestGetVoyagePort } from '../functions/manifestGetVoyagePort'
 import GetBookingFormManifest from './GetBookingFormManifest.class'
-import getContainerFromManifest from './GetContainerFromManifest.class'
-import getVoyageNumber from '../../utils/getVoyageNumber'
 import GetContainerFromManifest from './GetContainerFromManifest.class'
+import getVoyageNumber from '../../utils/getVoyageNumber'
 
 
 export default interface ManifestParser {
@@ -106,34 +105,13 @@ export default class ManifestParser extends DocumentsParser {
 		const parsedManifest = this.splitByBooking()
 		return parsedManifest.map( m => {
 			let { mension, type } = getMensionAndType(m.containers)
-			Object.assign( m, { mension, type })
+			Object.assign( m, { mension, type, voyage })
 			return m
 		})
 			
-
-		// let collect: Booking = {}
-		// let tmp: Headers.Manifest
-		// this.table.forEach(fo => {
-		// 	let chk = fo.BLNO && fo.BLNO.match(/(INT|INJIAN)/)
-		// 	if (chk) {
-		// 		tmp = fo
-		// 		let getBooking = new GetBookingFormManifest(fo)
-		// 		collect[tmp.BLNO] = Object.assign({}, getBooking.booking, { voyage })
-		// 	} else if (tmp && fo.CONTAINERNO) {
-		// 		if (fo.BLNO) collect[tmp.BLNO].hs = fo.BLNO
-
-		// 		collect[tmp.BLNO]['containers'].push(
-		// 			getContainerFromManifest(Object.assign({}, tmp, fo))
-		// 		)
-		// 	}
-		// })
-
-		// const response = _.toArray(collect)
-
-		// return _.sortBy(response, 'bookingId')
 	}
 }
 
-let test = new ManifestParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Manifest_XINGANG_short.xls').parsed
+// let test = new ManifestParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Manifest_XINGANG_short.xls').parsed
 
 
