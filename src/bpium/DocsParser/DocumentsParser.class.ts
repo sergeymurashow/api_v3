@@ -25,7 +25,7 @@ export default interface DocumentsParser {
 // }
 
 
-export default abstract class DocumentsParser {
+export default class DocumentsParser {
 	constructor(filePath: string) {
 		let sheets = xls.readFile(filePath)
 		let sheet = {}

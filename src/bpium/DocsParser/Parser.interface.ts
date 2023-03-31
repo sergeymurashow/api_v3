@@ -1,6 +1,6 @@
 import { ErrorsCollector } from "../../ErrorCollector";
-import { Booking } from "../types";
-import DocumentsParser from "./DocumentsParser.abstract";
+import { Booking, Container } from "../types";
+import DocumentsParser from "./DocumentsParser.class";
 import { Headers } from "../types";
 
 /**
@@ -11,10 +11,10 @@ import { Headers } from "../types";
  */
 export default interface Parser {
 	inputRow: any
-	Parsed: Booking
+	Parsed: Booking | Container
 	Errors: ErrorsCollector
 	parse(): void
-	get booking(): Booking & {Errors: Array<string>}
+	get info(): Booking | Container & {Errors: Array<string>}
 }
 
 // export default abstract class Parser {
@@ -27,6 +27,6 @@ export default interface Parser {
 // 		this.Parsed = {}
 // 		this.Errors = new ErrorsCollector('Report errors')
 // 	}
-// 	privateparse(): void {}
+// 	private parse(): void {}
 
 // }

@@ -24,7 +24,7 @@ export interface Booking {
 	pkgs?: string,
 	packType?: string,
 	gWeight?: string,
-	desc?: string,
+	goods?: string,
 	shipper?: string,
 	consignee?: string,
 	notifyParty?: string,
@@ -58,7 +58,7 @@ export type Container = {
 	freight?: string,
 	owner?: string,
 	type?: string,
-	mension?: string
+	mension?: string,
 }
 
 export type Contract = {

@@ -1,8 +1,9 @@
 version: '3.9'
 services:
   bpium_api: 
-    build: .
+    container_name: bpium_api
+    image: k00kla/bpium_api:latest
     ports: 
-      - 8080:8080
+      - 5001:5001
     env_file:
       - config.env

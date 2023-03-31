@@ -4,7 +4,7 @@ type Errlog = {
 
 export class ErrorsCollector extends Error{
 	errCollection: Array<string>
-	errLog: ( message: Errlog  ) => void
+	errLog: ( description: Errlog  ) => void
 	getErrors: () => Array<string>
 	constructor( message: string ) {
 		super( message )

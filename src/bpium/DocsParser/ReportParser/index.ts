@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import DocumentsParser from "../DocumentsParser.abstract"
+import DocumentsParser from "../DocumentsParser.class"
 import { Booking, Headers } from '../../types'
 import FindTableTitle from '../FindTableTitle.class'
 import GetBookingFromReport from './GetBookingFromReport.class'
@@ -33,7 +33,7 @@ export default class ReportParser extends DocumentsParser {
 				let parsedBooking: ParseResult
 				try {
 					let getBooking = new GetBookingFromReport( fo )
-					parsedBooking = getBooking.booking
+					parsedBooking = getBooking.info
 					if( parsedBooking.Errors ) {
 
 					}

@@ -1,7 +1,5 @@
-import { timeStamp } from 'console'
 import dotenv from 'dotenv'
-const configPath = process.env.CONFIG || '../config/config.env'
-// const configPath = process.env.CONFIG || '../config/test.env'
+const configPath = process.env.CONFIG || './config.env'
 
 console.log( configPath )
 
@@ -29,7 +27,5 @@ class GetConfig{
 }
 
 const bpiumConfig = new GetConfig(configPath)
-
-console.log( 'Bpium config is:', bpiumConfig)
 
 export default bpiumConfig

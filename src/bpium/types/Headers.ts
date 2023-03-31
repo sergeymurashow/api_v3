@@ -1,5 +1,5 @@
 export namespace Headers {
-	export type Contract = {
+	export interface Contract {
 		DATE?,
 		SC?,
 		BOOKINGNO?,
@@ -15,7 +15,7 @@ export namespace Headers {
 		row?
 	}
 
-	export type Manifest = {
+	export interface ManifestBooking {
 		BLNO?,
 		PKGS?,
 		PACKAGETYPE?,
@@ -25,7 +25,10 @@ export namespace Headers {
 		CONSIGNEE?,
 		NOTIFYPARTY?,
 		MARK?,
-		REMARK?,
+		row?
+	}
+
+	export interface ManifestContainer {
 		MENSION?,
 		TYPE?,
 		VOLUME?,
@@ -37,8 +40,11 @@ export namespace Headers {
 		CBM?,
 		FREIGHT?,
 		CONTAINEROWNER?,
+		REMARK?,
 		row?
 	}
+
+	export type Manifest = ManifestBooking & ManifestContainer
 
 }
 

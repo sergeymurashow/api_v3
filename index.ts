@@ -3,7 +3,6 @@ import express from 'express'
 import { bpiumRouter } from './routes/bpiumRouter'
 import { oneCRouter } from './routes/oneCRouter';
 
-import bodyParser from 'body-parser';
 import GetConfig from './GetConfig';
 
 const { port } = GetConfig

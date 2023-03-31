@@ -1,6 +1,6 @@
 import { Booking, Contract, Matrix, ParseError, Container, Headers } from '../../types'
 import { ErrorsCollector } from '../../../ErrorCollector'
-import * as parsingTools from './prettyData'
+import * as reportParsingFunctions from './reportParsingFunctions'
 import containersParse from './getContainersFromReport.function'
 import Parser from '../Parser.interface'
 
@@ -11,7 +11,7 @@ export default class GetBookingFromReport implements Parser {
 	constructor(inputRow: Headers.Contract) {
 		this.inputRow = inputRow
 		this.Parsed = {}
-		this.Errors = new ErrorsCollector('Report errors')
+		this.Errors = new ErrorsCollector(`Report errors in row: ${this.inputRow.row}`)
 	}
 
 	parse() {
@@ -22,64 +22,64 @@ export default class GetBookingFromReport implements Parser {
 		} catch (e) {
 			console.error(e)
 		}
-
+		
 		try {
-			Object.assign(this.Parsed, { bookingId: parsingTools.bookingId(this.inputRow.BOOKINGNO) })
+			Object.assign(this.Parsed, { bookingId: reportParsingFunctions.bookingId(this.inputRow.BOOKINGNO) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { applicationDate: parsingTools.applicationDate(this.inputRow.DATE) })
+			Object.assign(this.Parsed, { applicationDate: reportParsingFunctions.applicationDate(this.inputRow.DATE) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { contract: parsingTools.contract(this.inputRow.SC) })
+			Object.assign(this.Parsed, { contract: reportParsingFunctions.contract(this.inputRow.SC) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { voyageNumber: parsingTools.voyageNumber(this.inputRow.VESSEL) })
+			Object.assign(this.Parsed, { voyageNumber: reportParsingFunctions.voyageNumber(this.inputRow.VESSEL) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { containersCount: parsingTools.containersCount(this.inputRow.NUMBEROFCONTAINER) })
+			Object.assign(this.Parsed, { containersCount: reportParsingFunctions.containersCount(this.inputRow.NUMBEROFCONTAINER) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { mension: containers ? parsingTools.ejectFieldMap(containers, 'mension') : null })
+			Object.assign(this.Parsed, { mension: containers ? reportParsingFunctions.ejectFieldMap(containers, 'mension') : null })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { type: containers ? parsingTools.ejectFieldMap(containers, 'type') : null })
+			Object.assign(this.Parsed, { type: containers ? reportParsingFunctions.ejectFieldMap(containers, 'type') : null })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { gWeight: parsingTools.gWeight(this.inputRow.GROSSWEIGHT) })
+			Object.assign(this.Parsed, { gWeight: reportParsingFunctions.gWeight(this.inputRow.GROSSWEIGHT) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { shipper: parsingTools.shipper(this.inputRow.SHIPPER) })
+			Object.assign(this.Parsed, { shipper: reportParsingFunctions.shipper(this.inputRow.SHIPPER) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { port: parsingTools.port(this.inputRow.POL) })
+			Object.assign(this.Parsed, { port: reportParsingFunctions.port(this.inputRow.POL) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { freight: containers ? parsingTools.ejectFieldMap(containers, 'freight') : null })
+			Object.assign(this.Parsed, { freight: containers ? reportParsingFunctions.ejectFieldMap(containers, 'freight') : null })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { owner: containers ? parsingTools.ejectFieldMap(containers, 'owner') : null })
+			Object.assign(this.Parsed, { owner: containers ? reportParsingFunctions.ejectFieldMap(containers, 'owner') : null })
 		} catch (e) {
 			Errors.errLog(e)
 		}
@@ -97,7 +97,7 @@ export default class GetBookingFromReport implements Parser {
 
 	}
 
-	get booking() {
+	get info() {
 		this.parse()
 		return Object.assign({}, this.Parsed, {Errors: this.Errors.getErrors()})
 	}

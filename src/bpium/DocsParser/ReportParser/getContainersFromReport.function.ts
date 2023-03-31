@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { Matrix, Container, Headers } from '../../types'
-import * as parsingTools from './prettyData'
+import * as parsingTools from './reportParsingFunctions'
 
 export type ContainersParse = {
 	type: string,
