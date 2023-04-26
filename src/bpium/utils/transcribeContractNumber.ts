@@ -6,8 +6,8 @@ export default function transcribeContractNumber(contractNumber: string): any {
 
 	const reg = /(\d+)/g
 	const digitsFromContractNumber = contractNumber.match(reg)
-	if( digitsFromContractNumber.length < 3 ) {
-		throw new Error( 'Wrong contract number' )
+	if( !digitsFromContractNumber ) {
+		return contractNumber //throw new Error( 'Wrong contract number' )
 	}
 	return replacer( digitsFromContractNumber )
 }

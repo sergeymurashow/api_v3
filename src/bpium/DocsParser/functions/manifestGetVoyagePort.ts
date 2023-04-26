@@ -57,12 +57,12 @@ interface ManifestGetVoyagePortOut {
 export default function manifestGetVoyagePort(table: ManifestGetVoyagePort ): ManifestGetVoyagePortOut {
 	const stringWithShipname = findVoyageString(makeInfoString( table ))
 	const vesselVoyage = getValueByReg(stringWithShipname, regs.shipnameReg)
-	const portCountry = getValueByReg(stringWithShipname, regs.dischPortReg)
-	const loadingPort = getValueByReg(stringWithShipname, regs.loadingPortReg)
+	const portCountry = getValueByReg(stringWithShipname, regs.dischPortReg).split(',')
+	const loadingPort = getValueByReg(stringWithShipname, regs.loadingPortReg).split(',')
 	return {
 		vesselVoyage,
-		portCountry,
-		loadingPort
+		portCountry: portCountry[0],
+		loadingPort: loadingPort[0]
 	}
 }
 

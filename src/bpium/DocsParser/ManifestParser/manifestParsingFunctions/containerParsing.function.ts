@@ -59,7 +59,7 @@ export const tWeight = (data: string | number): string => {
 
 export const freight = (data: string) => {
 	if (!data) throw new Error('Empty freight!')
-	const freightReg = /(freight|collect)/gi
+	const freightReg = /(prepaid|collect)/gi
 	if (!freightReg.test(data)) new Error('Wrong freight/collect!')
 	data = utils.clearString(data)
 	return data.match(freightReg)[0].toLowerCase()

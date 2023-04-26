@@ -40,11 +40,11 @@ export interface Booking {
 	filename?: string,
 	port?: string,
 	containersCount?: number,
-	mension?: string
+	mension?: string,
 }
 
 export interface BookingAccounting extends Booking {
-	sum: string
+	sum: string,
 }
 
 export type Container = {
@@ -59,6 +59,7 @@ export type Container = {
 	owner?: string,
 	type?: string,
 	mension?: string,
+	remark?: string,
 }
 
 export type Contract = {

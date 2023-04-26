@@ -86,26 +86,25 @@ export default class ManifestParser extends DocumentsParser {
 
 	get parsed() {
 		const { portCountry, loadingPort, vesselVoyage } = manifestGetVoyagePort(this.voyageInfo)
-		let voyage = getVoyageNumber(vesselVoyage)
+		let voyageNumber = getVoyageNumber(vesselVoyage)
 
-		const getMensionAndType = (containers: Container[]) => {
-			let mensions = []
-			let types = []
-			containers.forEach(fo => {
-				mensions.push(fo.mension)
-				types.push(fo.type)
-			})
+		const getGrouppedData = (containers: Container[]) => {
+			const mension = _.uniq(containers.map ( container => container.mension))
+			const type = _.uniq(containers.map ( container => container.type))
+			const owner = _.uniq(containers.map ( container => container.owner))
+			const freight = _.uniq(containers.map ( container => container.freight))
 
 			return {
-				mension: _.uniq(mensions),
-				type: _.uniq(types)
+				mension,
+				type,
+				owner,
+				freight,
 			}
 		}
 
 		const parsedManifest = this.splitByBooking()
 		return parsedManifest.map( m => {
-			let { mension, type } = getMensionAndType(m.containers)
-			Object.assign( m, { mension, type, voyage })
+			Object.assign( m, { voyageNumber, from: loadingPort, to: portCountry }, getGrouppedData(m.containers) )
 			return m
 		})
 			

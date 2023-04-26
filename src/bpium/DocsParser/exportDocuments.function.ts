@@ -19,7 +19,9 @@ export default async function exportDocuments(data) {
 	let result: {[key: string | number ]: any}[] = []
 	for (let j in data) {
 		let i = data[j]
-		result = result.concat(new ParseExcel(i.fileName, i.docType).booking)
+		let parsed = new ParseExcel(i.fileName, i.docType).booking
+		result = result.concat(parsed)
+		
 	}
 	return result
 }
