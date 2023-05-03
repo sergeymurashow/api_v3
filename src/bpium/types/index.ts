@@ -32,15 +32,17 @@ export interface Booking {
 	hs?: string | null,
 	containers?: Array<Container>
 	contract?: string,
-	owner?: string,
-	type?: string,
-	freight?: string,
-	isManifest?: Array<number>,
+	owner?: string[],
+	type?: string[],
+	freight?: string[],
+	isManifest?: boolean,
 	docType?: string,
 	filename?: string,
 	port?: string,
 	containersCount?: number,
-	mension?: string,
+	mension?: string[],
+	from?: string,
+	to?: string,
 }
 
 export interface BookingAccounting extends Booking {
@@ -113,6 +115,7 @@ export type containerFieldFromBpium = {
 export type containerFieldsFromBpium = Array<containerFieldFromBpium>
 
 export type bookingFromBpium = {
+	[x: string]: any
 	"5": string,
 	"16": string,
 	"39": Array<any>,

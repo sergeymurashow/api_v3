@@ -1,4 +1,4 @@
-import { Booking } from "../types";
+import { Booking, ParseError } from "../types";
 import FormatManifest from "./FormatManifest.class";
 import FormatReport from "./FormatReport.class";
 
@@ -6,7 +6,7 @@ import FormatReport from "./FormatReport.class";
 export type DocType = 'manifest' | 'report'
 
 export default class DocsFormat {
-	data: Booking[];
+	data: ( Booking )[];
 	docType: DocType;
 	constructor( data: Booking[], docType: DocType ) {
 		this.data = data;
