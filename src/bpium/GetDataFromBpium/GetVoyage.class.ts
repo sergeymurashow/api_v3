@@ -12,7 +12,7 @@ export default class GetVoyage {
 				{ 4: voyageNumber }
 			)
 			if (!voyage) return undefined;
-			return voyage.map( v => Object.assign( v, { catalogId: 140 } ) )
+			return voyage.map( v => Object.assign( v, { catalogId: "139" } ) )
 		})()
 	}
 }

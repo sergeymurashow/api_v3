@@ -7,12 +7,12 @@ type VoyageNumber = {
 }
 
 export default class PostBooking { 
-	newBooking: {id: string | number, catalogId: string | number}[]
+	private newBooking: {id: string | number, catalogId: string | number}[]
 
 	async addBooking( data ) {
 		const connection = new PostBpium()
 		const newBooking = await connection.record( 73, data )
 		if (!newBooking) return undefined;
-		return newBooking
+		return {recordId: newBooking.id, catalogId: 73}
 	}
 }

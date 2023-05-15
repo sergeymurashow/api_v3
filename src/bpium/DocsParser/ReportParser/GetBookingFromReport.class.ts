@@ -17,6 +17,7 @@ export default class GetBookingFromReport implements Parser {
 	parse() {
 		const Errors = this.Errors
 		let containers
+
 		try {
 			containers = containersParse(this.inputRow)
 		} catch (e) {
@@ -69,7 +70,12 @@ export default class GetBookingFromReport implements Parser {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { port: reportParsingFunctions.port(this.inputRow.POL) })
+			Object.assign(this.Parsed, { from: 'VOSTOCHNY' })
+		} catch (e) {
+			Errors.errLog(e)
+		}
+		try {
+			Object.assign(this.Parsed, { to: reportParsingFunctions.to(this.inputRow.POL) })
 		} catch (e) {
 			Errors.errLog(e)
 		}

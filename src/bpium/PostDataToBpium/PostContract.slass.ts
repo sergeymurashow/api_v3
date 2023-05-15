@@ -10,6 +10,6 @@ export default class PostContract {
 			12: ['1']
 		})
 		if (!newContract) return undefined;
-		return newContract
+		return Object.assign(newContract, {catalogId: 114})
 	}
 }

@@ -1,6 +1,6 @@
 import { Booking, bookingsFromBpium } from "../types";
 import GetBpium from "../Connection/GetBpium.class";
-import getBookingButton from "../DocsFormat/GetBookingButton.function";
+import getBookingButton from "../DocsFormat/getBookingButton.function";
 
 export default class GetPoints {
 	pointsNames: Array<string>
@@ -25,7 +25,7 @@ export default class GetPoints {
 function filterParams( voyage: string, pointsNames: Array<string> ) {
 	return {
 		"$and": [
-			{ 11: voyage },
+			{ 5: voyage },
 			{
 				"$or": pointsNames.map( name => ({ 11: name }) )
 			}]

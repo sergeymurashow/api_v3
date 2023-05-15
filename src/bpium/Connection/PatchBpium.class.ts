@@ -4,17 +4,17 @@ import { safeFile } from "../utils/safeFile";
 type Item = 'record' | 'catalog'
 type actions = 'new' | 'add'
 
-export default class PostBpium extends Request {
+export default class PatchBpium extends Request {
 	data
-	constructor(data?: any, headers?: any) {
-		super("POST", data, headers);
+	constructor(data?: any,headers?: any) {
+		super("PATCH", data, headers);
 		this.headers['Content-Type'] = 'application/json'
 	}
 
-	async record(catalogId: number | string, data = {}) {
-		this.url = `${this.url}/catalogs/${catalogId}/records`;
+	async record(catalogId: number | string, recordId: number | string, data = {}) {
+		this.url = `${this.url}/catalogs/${catalogId}/records/${recordId}`;
 		this.data = {values: data}
-		safeFile('check_post.json', JSON.stringify(this.data, null, 1))
+		safeFile('check_patch.json', JSON.stringify(this.data, null, 1))
 		try {
 			const res = await this.send()
 			return res.data

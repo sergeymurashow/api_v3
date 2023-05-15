@@ -5,6 +5,9 @@ import ParseExcel from './ParseExcel.class'
 import DocsFormat from '../DocsFormat'
 import { Booking } from '../types'
 import FormatManifest from '../DocsFormat/FormatManifest.class'
+import UploadBooking from '../DocsUpload/UploadBooking.class'
+import UploadContainer from '../DocsUpload/UploadContainer.class'
+import FormatContainer from '../DocsFormat/ContainersFormat/FormatContainer.class'
 
 export default async function exportDocuments(data) {
 
@@ -19,18 +22,33 @@ export default async function exportDocuments(data) {
 		await utils.downloadFiles(i)
 	}
 
-	let result: {[key: string | number ]: any}[] = []
-	let result2 = []
+	let result: { [key: string | number]: any }[] = []
 	for (let j in data) {
 		let i = data[j]
 		let parsed = new ParseExcel(i.fileName, i.docType).booking as Booking[]
-		switch (i.docType) {
-			case 'manifest': result2 = result2.concat( await new FormatManifest(parsed).result() )
-			break;
-			case 'contract':
-			break;
 		result = result.concat(parsed)
-		}
+
+		let docsFormat = await new DocsFormat(parsed, i.docType).bpiumFormat()
+		let prettiedBookings = await docsFormat.result()
+		await Promise.all(prettiedBookings.map(async (m, index) => {
+			let operationBooking, operationContainers
+			try {
+				operationBooking = await new UploadBooking()[m.method](m)
+			} catch (e) {
+				console.log(e)
+			}
+
+			try {
+				operationContainers = (async () => {
+					Promise.all(m.containers.map(async (c) => {
+						await new UploadContainer([operationBooking])[c.method](c)
+					}))
+				})()
+			} catch (e) {
+				console.log(e)
+			}
+		}))
+
 	}
-	return result2
+	return result
 }

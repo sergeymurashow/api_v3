@@ -21,7 +21,7 @@ export default class ReportParser extends DocumentsParser {
 	get parsed(): ParseResult[] {
 		const collect: ParseResult[] = []
 
-		const getGrouppedData = (containers: Container[]) => {
+		const getGroupedData = (containers: Container[]) => {
 
 			const toEject = [ 'mension', 'type', 'owner', 'freight']
 			const result: Omit<Container, 'number'> = {}
@@ -59,7 +59,7 @@ export default class ReportParser extends DocumentsParser {
 				try {
 					let getBooking = new GetBookingFromReport( fo )
 					parsedBooking = getBooking.info
-					Object.assign( parsedBooking, getGrouppedData( parsedBooking.containers ) )
+					Object.assign( parsedBooking, getGroupedData( parsedBooking.containers ) )
 					collect.push( parsedBooking )
 				} catch ( e ) {
 					console.error( e )

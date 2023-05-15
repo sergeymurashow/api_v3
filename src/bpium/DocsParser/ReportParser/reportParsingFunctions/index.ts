@@ -102,12 +102,21 @@ export const shipper = (data: string) => {
 	}
 }
 
-export const port = (data: string) => {
+export const from = (data: string) => {
 	data = utils.clearString(data)
 	if (data) {
 		return data
 	} else {
-		throw new Error('Wrong port!')
+		throw new Error('Wrong port from!')
+	}
+}
+
+export const to = (data: string) => {
+	data = utils.clearString(data)
+	if (data) {
+		return data
+	} else {
+		throw new Error('Wrong port to!')
 	}
 }
 

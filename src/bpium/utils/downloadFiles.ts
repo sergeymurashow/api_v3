@@ -19,7 +19,8 @@ export default async function downloadFiles(file: File) {
 	console.log('file', file)
 	let url = file.url;
 	let writer = Fs.createWriteStream(file.fileName);
-	console.log( 'Download file from:', url)
+	console.log( `Download file from: ${url}`)
+	console.log( `Save file to: ${file.fileName}`)
 	let resp = await Axios({ url, method: 'GET', responseType: 'stream' })
 
 	resp.data.pipe(writer)

@@ -9,7 +9,7 @@ const buttonGroup = {
 		'RF': 3,
 		'HQ': 4,
 		'HC': 5,
-		'GP': 7,
+		'GP': 6,
 	},
 	'owner': {
 		'SOC': 1,
@@ -26,6 +26,6 @@ const buttonGroup = {
 }
 
 export default function <T extends keyof typeof buttonGroup>(type: T, name: string) {
-	return buttonGroup[type][name] ? buttonGroup[type][name] : [];
+	return buttonGroup[type][name] ? [buttonGroup[type][name]] : [];
 	}
 
