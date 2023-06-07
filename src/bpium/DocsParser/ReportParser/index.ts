@@ -5,7 +5,7 @@ import FindTableTitle from '../FindTableTitle.class'
 import GetBookingFromReport from './GetBookingFromReport.class'
 
 export default interface ReportParser {
-	table: Headers.Contract[]
+	table: Headers.Report[]
 	startIndex: number
 }
 
@@ -48,7 +48,7 @@ export default class ReportParser extends DocumentsParser {
 		this.table
 			.filter(f => {
 				try {
-					return f.BOOKINGNO && f.BOOKINGNO.toString().match(/(INT|INJIAN)\d+/) as Headers.Contract
+					return f.BOOKINGNO && f.BOOKINGNO.toString().match(/(INT|INJIAN)\d+/) as Headers.Report
 				} catch (e) {
 					console.error(e)
 					console.log(f)

@@ -1,20 +1,4 @@
-import axios from "axios";
-import dotenv from 'dotenv'
-import path from 'path'
-import { URLSearchParams } from "url";
-
-const bpConfig = dotenv.config({ path: path.resolve(__dirname, '../../../../config/config.env') }).parsed
-
-
-const {
-	PROTOCOL,
-	BPIUM_URL,
-	API_PATH,
-	USERNAME,
-	PASSWORD
-} = bpConfig;
-
-const baseURL = `${PROTOCOL}://${BPIUM_URL}`;
+import {controller} from "./ConnectionController.class";
 
 export default class Request {
 	baseURL: string;
@@ -24,42 +8,24 @@ export default class Request {
 	url: string;
 	cookie: string;
 	connect
+	stopAfter: number;
+	requestCount: number = 0;
+
 	constructor(method: string, data?: any, headers?: any) {
-		this.baseURL = baseURL;
-		this.url = API_PATH;
 		this.method = method;
 		this.data = data;
 		this.headers = headers || {};
-	}
-
-	private async auth(email: string = USERNAME, password: string = PASSWORD) {
-		try {
-			const res = await axios({
-				baseURL,
-				url: 'auth/login',
-				method: 'POST',
-				data: {
-					email,
-					password
-				}
-			});
-			this.cookie = res.headers['set-cookie'][0];
-			Object.assign(this.headers, { cookie: this.cookie })
-		} catch (e) {
-			console.error(e)
-		}
+		this.stopAfter = 100;
 	}
 
 	async send(filter?) {
-		if (this.headers.cookie === undefined) { await this.auth() }
 		try {
-			return await axios({
-				baseURL: this.baseURL,
+			return await controller.request({
 				url: this.url,
 				method: this.method,
 				data: this.data,
 				headers: this.headers,
-				params: filter,
+				filter: filter,
 			});
 		} catch (e) {
 			console.error(e)

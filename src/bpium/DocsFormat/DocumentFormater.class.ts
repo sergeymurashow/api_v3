@@ -12,7 +12,7 @@ import findEmptyItems from "./findEmptyItems.function";
 
 import testBooking from '../../../testData/testBooking.json'
 import _ from "lodash";
-import PostContract from "../PostDataToBpium/PostContract.slass";
+import PostContract from "../PostDataToBpium/PostReport.slass";
 
 function renameIdKey(input: any): { recordId: string, catalogId: string } {
 	Object.assign(input, { recordId: input.id })

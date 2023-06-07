@@ -2,17 +2,29 @@ import xls from 'xlsx'
 import _ from 'lodash'
 
 import { Obj } from '../types/index'
+export type BigSheet = { row: string, col: string, value: string, name: string, merge }
 
 export default interface DocumentsParser {
 	constructor(
 		filePath: string,
 	)
 	fixVoyageNumber: string
-	bigSheet: { row: string, col: string, value: string, name: string, merge }[]
+	bigSheet: BigSheet[]
+	colIndexes: string[]
 	testSheet?: Obj
 	filePath?: string
 	mergedRows
+}
 
+type Merges = {
+	s: {
+		c: number | string,
+		r: number | string,
+	},
+	e: {
+		c: number | string,
+		r: number | string,
+	},
 }
 
 export default class DocumentsParser {
@@ -30,7 +42,7 @@ export default class DocumentsParser {
 			case 'all': sheets.Workbook.Sheets.forEach((fo, index) => {
 				sheet[fo.name] = sheets.Sheets[fo.name]
 			})
-			case 'first': sheet[sheets.Workbook.Sheets[0].name] = sheets.Sheets[sheets.Workbook.Sheets[0].name]
+			default: sheet[sheets.Workbook.Sheets[0].name] = sheets.Sheets[sheets.Workbook.Sheets[0].name]
 		}
 
 		let parsedSheet = _.toArray(sheet).map(m => {
@@ -47,26 +59,50 @@ export default class DocumentsParser {
 				continue
 			}
 			let [row, col, value,] = [i.replace(/[a-zA-Z]+/, ''), i.replace(/\d+/, ''), sheet[i]['w']]
-			let merge = this.getMergeRow(row, merged)
-			
-			table.push({ row, col, value, merge })
+
+			table.push({ row, col, value })
 		}
+
+		this.colIndexes = this.makeColIndexes(table)
+		merged.forEach(merge => {
+			merge.s.c = this.colIndexes[merge.s.c]
+			merge.e.c = this.colIndexes[merge.e.c]
+		})
+		table.forEach((fo, fi, fa) => {
+			let merge = this.getMergeRow(fo.row, fo.col, merged)
+			fo.merge = merge
+		})
 		return table
+		/* 
+		Need to remap merges
+		*/
 	}
 
-	private getMergeRow(row, merges) {
-		if ( !merges ) return
+	private makeColIndexes(table: BigSheet[]) {
+		let colIndexes = table.map(m => m.col)
+		colIndexes = _.uniq( colIndexes )
+		return colIndexes.sort((a, b) => {
+			if (a.length > b.length) return 1
+			if (a.length < b.length) return -1
+			return 0
+		})
+	}
+
+	private getMergeRow(row, col, merges: Merges[]) {
+		if (!merges) return
 		let foundMerges
 		try {
 			foundMerges = merges.find(f => {
-				return f.s.r == row || f.e.r == row
+				let mergeStart = f.s.c === col && f.s.r === +row - 1
+				let mergeEnd = f.e.c === col && f.e.r === +row - 1
+				return mergeStart || mergeEnd
 			})
 		} catch (e) {
 			console.log(e)
 		}
 		if (typeof foundMerges !== 'undefined') {
 			try {
-				return { from: foundMerges.s.r + 1, to: foundMerges.e.r + 1}
+				return { from: foundMerges.s.r + 1, to: foundMerges.e.r + 1 }
 			} catch (e) {
 				console.log(e)
 			}

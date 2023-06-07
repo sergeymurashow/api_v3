@@ -10,6 +10,7 @@ const buttonGroup = {
 		'HQ': 4,
 		'HC': 5,
 		'GP': 7,
+		'TK': 8,
 	},
 	'owner': {
 		'SOC': 1,

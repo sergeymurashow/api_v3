@@ -9,6 +9,7 @@ import { Booking, ParseError } from '../types'
 //* Indoor files
 import ManifestParser from './ManifestParser'
 import ReportParser from './ReportParser'
+import ContractParser from './ContractsParser'
 //*
 
 export default class ParseExcel {
@@ -30,6 +31,11 @@ export default class ParseExcel {
 				return new ReportParser( this.fileName ).parsed.map( m => Object.assign(m, {fileName: this.fileName}))
 				break;
 		}
+	}
+
+	get contract() {
+		const parsedContracts = new ContractParser( this.fileName ).parsed
+		return 
 	}
 }
 

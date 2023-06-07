@@ -7,8 +7,8 @@ import Parser from '../Parser.interface'
 export default class GetBookingFromReport implements Parser {
 	Parsed: Booking;
 	Errors: ErrorsCollector
-	inputRow: Headers.Contract;
-	constructor(inputRow: Headers.Contract) {
+	inputRow: Headers.Report;
+	constructor(inputRow: Headers.Report) {
 		this.inputRow = inputRow
 		this.Parsed = {}
 		this.Errors = new ErrorsCollector(`Report errors in row: ${this.inputRow.row}`)

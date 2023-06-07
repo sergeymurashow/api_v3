@@ -11,6 +11,9 @@ interface GetConfig{
 	callbackParsed: string
 	callbackTariff: string
 	callbackNonValid: string
+	apiPath: string
+	login: string
+	pass: string
 }
 
 class GetConfig{
@@ -23,6 +26,9 @@ class GetConfig{
 		this.callbackParsed = process.env.CALLBACK_PARSED
 		this.callbackTariff = process.env.CALLBACK_TARIFF
 		this.callbackNonValid = process.env.CALLBACK_NON_VALID
+		this.apiPath = process.env.API_PATH
+		this.login = process.env.USERNAME
+		this.pass = process.env.PASSWORD
 	}
 }
 

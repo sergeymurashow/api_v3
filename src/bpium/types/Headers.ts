@@ -1,5 +1,5 @@
 export namespace Headers {
-	export interface Contract {
+	export interface Report {
 		DATE?,
 		SC?,
 		BOOKINGNO?,

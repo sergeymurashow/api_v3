@@ -9,7 +9,7 @@ export type ContainersParse = {
 	owner: string
 }
 
-export default function containersParse(data: Headers.Contract): ContainersParse[] {
+export default function containersParse(data: Headers.Report): ContainersParse[] {
 	if (!data.TYPE) throw new Error('Wrong type!')
 	if (!data.NUMBEROFCONTAINER) throw new Error('Wrong number of containers!')
 

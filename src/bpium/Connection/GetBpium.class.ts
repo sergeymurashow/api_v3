@@ -12,14 +12,14 @@ export default class GetBpium extends Request {
 	}
 
 	catalog(catalogId: number | string) {
-		this.url = `${this.url}/catalogs/${catalogId}`;
+		this.url = `catalogs/${catalogId}`;
 		return this.send()
 			.then(res => res.data)
 			.catch(err => console.log(err))
 	}
 
 	record(catalogId: number | string, recordId: number | string) {
-		this.url = `${this.url}/catalogs/${catalogId}/records/${recordId}`;
+		this.url = `catalogs/${catalogId}/records/${recordId}`;
 		return this.send()
 			.then(res => res.data)
 			.catch(err => console.log(err))
@@ -37,7 +37,7 @@ export default class GetBpium extends Request {
 			this.setFilter('new', filter)
 		}
 
-		this.url = `${this.url}/catalogs/${catalogId}/records`;
+		this.url = `catalogs/${catalogId}/records`;
 		return this.send(this.searchParams.filter)
 			.then(res => res.data)
 			.catch(err => console.log(err))

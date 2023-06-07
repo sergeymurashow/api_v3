@@ -1,5 +1,5 @@
 import Request from "./Request.class";
-import { safeFile } from "../utils/safeFile";
+import { saveFile } from "../utils/saveFile";
 
 type Item = 'record' | 'catalog'
 type actions = 'new' | 'add'
@@ -12,9 +12,8 @@ export default class PatchBpium extends Request {
 	}
 
 	async record(catalogId: number | string, recordId: number | string, data = {}) {
-		this.url = `${this.url}/catalogs/${catalogId}/records/${recordId}`;
+		this.url = `catalogs/${catalogId}/records/${recordId}`;
 		this.data = {values: data}
-		safeFile('check_patch.json', JSON.stringify(this.data, null, 1))
 		try {
 			const res = await this.send()
 			return res.data
