@@ -1,7 +1,5 @@
 import { ErrorsCollector } from "../../ErrorCollector";
 import { Booking, Container } from "../types";
-import DocumentsParser from "./DocumentsParser.class";
-import { Headers } from "../types";
 
 /**
  * @argument Parsed type Booking

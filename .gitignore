@@ -4,6 +4,6 @@ config
 .vscode
 dist
 config
-build
+build*
 config.env
 tmp*

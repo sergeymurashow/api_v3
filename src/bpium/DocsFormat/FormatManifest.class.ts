@@ -43,7 +43,7 @@ export default class FormatManifest{
 			return {
 				data: {
 					5: b.bookingId,
-					63: b.owner.map(o => getBookingButton('owner', o.toUpperCase())),
+					63: b.owner.map(o => getBookingButton('owner', o.toUpperCase())).filter(o => o),
 					91: voyage,
 					108: b.shipper,
 					116: freightTerm,

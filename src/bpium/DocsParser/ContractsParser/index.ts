@@ -109,8 +109,3 @@ export default class ContractParser extends DocumentsParser {
 		}
 	}
 }
-
-; (async () => {
-	let t = await new ContractParser(testData).parsed()
-	// console.log(t)
-})()

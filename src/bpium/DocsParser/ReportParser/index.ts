@@ -69,5 +69,3 @@ export default class ReportParser extends DocumentsParser {
 		return collect
 	}
 }
-
-// let test = new ReportParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Report_short.xlsx').parsed

@@ -47,7 +47,7 @@ export default class FormatReport {
 			return {
 				data: {
 					5: b.bookingId, // bookingId
-					63: b.owner.map(o => getBookingButton('owner', o.toUpperCase())),
+					63: b.owner.map(o => getBookingButton('owner', o.toUpperCase())).filter(o => o),
 					91: this.cache.get(b.voyageNumber),
 					108: b.shipper, // shipper
 					116: b.freight.map(m => getBookingButton('freightTerm', m.toUpperCase())),

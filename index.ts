@@ -18,7 +18,9 @@ const app = express();
 app.use('/api/bpium', bpiumRouter)
 app.use('/api/1c', oneCRouter)
 
-const startMessage = `Running with params:
+const startMessage = `
+API version 3.0.0
+Running with params:
 ${configMessage()}
 `
 

@@ -46,7 +46,7 @@ function containersGenerate({ count, type, freight, owner }) {
 			type: parsingTools.containerType(type),
 			mension: parsingTools.containersMension(type),
 			freight,
-			owner
+			owner: parsingTools.owner(owner)
 		})
 	}
 	return resp

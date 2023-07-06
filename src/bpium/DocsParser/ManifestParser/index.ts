@@ -110,7 +110,3 @@ export default class ManifestParser extends DocumentsParser {
 			
 	}
 }
-
-// let test = new ManifestParser('/Users/sergey.murashow/Codets/intecoJiangjie/api_v3/testData/Manifest_XINGANG_short.xls').parsed
-
-

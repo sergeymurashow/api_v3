@@ -49,16 +49,19 @@ export default class DocumentFormat {
 	}
 
 	async setVoyage() {
-		const voyage = _.uniq(this.bookingsCollection.map(m => m.voyageNumber))[0]
-		const resp = await new GetVoyage(voyage).voyage
-		if (!resp) return this;
-		this.cache.set(voyage, resp.map(m => {
-			let newM = renameIdKey(m)
-			return {
-				recordId: newM.recordId,
-				catalogId: newM.catalogId,
-			}
-		}))
+		const voyages = _.uniq(this.bookingsCollection.map(m => m.voyageNumber))
+
+		for (let voyage of voyages) {
+			const resp = await new GetVoyage(voyage).voyage
+			if (!resp) continue;
+			this.cache.set(voyage, resp.map(m => {
+				let newM = renameIdKey(m)
+				return {
+					recordId: newM.recordId,
+					catalogId: newM.catalogId,
+				}
+			}))
+		}
 		return this
 	}
 

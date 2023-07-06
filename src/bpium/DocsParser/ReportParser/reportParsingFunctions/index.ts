@@ -132,6 +132,7 @@ export const freight = (data: string) => {
 export const owner = (data: string) => {
 	if (data) {
 		data = utils.clearString(data)
+		data = data.replace(/(soc|coc)(.*)/i, '$1')
 		return data
 	} else {
 		throw new Error('Wrong SOC-COC!')
@@ -151,6 +152,7 @@ function makeDate(chinaDate: string): string {
 		if (/(\d{1,2}\.*){3}$/.test(cd)) return 'M.D.YY'
 		if (/(\d{1,2}\/*){3}$/.test(cd)) return 'D/M/YY'
 		if (/\d{4}\/\d{1,2}\/\d{1,2}/.test(cd)) return 'YYYY/MM/DD'
+		if (/\d{2}\/\d{2}\/\d{4}/.test(cd)) return 'DD/MM/YYYY'
 	}
 	let fixedDate = dayjs((chinaDate), dateFormat(chinaDate)).format('YYYY-MM-DDT00:00:00')
 	if( !dayjs(fixedDate).isValid() ) throw new Error( 'Wrong application date!' )

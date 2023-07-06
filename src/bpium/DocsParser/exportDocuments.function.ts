@@ -37,15 +37,16 @@ export default async function exportDocuments(data) {
 			} catch (e) {
 				console.log(e)
 			}
-
-			try {
-				operationContainers = (async () => {
-					Promise.all(m.containers.map(async (c) => {
-						await new UploadContainer([operationBooking])[c.method](c)
-					}))
-				})()
-			} catch (e) {
-				console.log(e)
+			if (m.containers && m.containers.length) {
+				try {
+					operationContainers = (async () => {
+						Promise.all(m.containers.map(async (c) => {
+							await new UploadContainer([operationBooking])[c.method](c)
+						}))
+					})()
+				} catch (e) {
+					console.log(e)
+				}
 			}
 		}))
 
