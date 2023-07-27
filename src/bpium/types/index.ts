@@ -43,6 +43,7 @@ export interface Booking {
 	mension?: string[],
 	from?: string,
 	to?: string,
+	dropPort?: string,
 }
 
 export interface BookingAccounting extends Booking {
@@ -62,6 +63,7 @@ export type Container = {
 	type?: string,
 	mension?: string,
 	remark?: string,
+	dropPort?: string,
 }
 
 export type Contract = {
@@ -150,7 +152,9 @@ export type bookingFromBpium = {
 	"153": string,
 	"154": string,
 	"156": Array<any>,
-	"157": Array<any>
+	"157": Array<any>,
+	"180": string,
+	"181": string
 }
 
 export type bookingsFromBpium = Array<bookingFromBpium>

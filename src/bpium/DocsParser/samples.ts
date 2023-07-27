@@ -2,7 +2,7 @@ import fs from 'fs'
 import Path from 'path'
 import { Obj } from '../types'
 
-export type DocType = 'contract' | 'manifest'
+export type DocType = 'report' | 'manifest'
 export type Sample = {
 	cellName: string,
 	alias: string
@@ -10,7 +10,7 @@ export type Sample = {
 
 
 const samples = {
-	'contract': [
+	'report': [
 		'DATE',
 		'S/C',
 		'BOOKING NO',
@@ -51,6 +51,7 @@ const samples = {
 	],
 	getWithAliases( docType : DocType): Sample[] {
 		const tmp: Obj[] = []
+		let t = this[docType]
 		const mappedNames = this[docType].map( m => {
 			let alias = m.replace(/[^\w\d]/g, '')
 			let tryAlias = tmp.filter( f => f == alias )

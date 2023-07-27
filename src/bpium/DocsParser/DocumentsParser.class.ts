@@ -34,12 +34,11 @@ export default class DocumentsParser {
 		try {
 			sheets = xls.readFile(filePath)
 			sheets.Workbook.Sheets = sheets.Workbook.Sheets.filter(fi => !fi.Hidden)
-
 		} catch (e) {
 			console.error(e)
 		}
 		switch (pages) {
-			case 'all': sheets.Workbook.Sheets.forEach((fo, index) => {
+			case 'all': sheets.Workbook.Sheets.forEach((fo) => {
 				sheet[fo.name] = sheets.Sheets[fo.name]
 			})
 			default: sheet[sheets.Workbook.Sheets[0].name] = sheets.Sheets[sheets.Workbook.Sheets[0].name]

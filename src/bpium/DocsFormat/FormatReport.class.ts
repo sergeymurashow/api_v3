@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import { Booking } from "../types";
 import GetBpium from "../Connection/GetBpium.class";
 import getBookingButton from "./getBookingButton.function";
@@ -38,6 +40,8 @@ export default class FormatReport {
 				return {
 					data: {
 						130: this.cache.get(b.contract),
+						169: b.applicationDate && b.applicationDate.length ? b.applicationDate : undefined,
+						180: b.dropPort ? _.uniq(b.dropPort)[0] : undefined,
 					},
 					method: this.post[b.bookingId] ? 'post' : 'patch',
 					recordId: this.patch[b.bookingId] ? this.patch[b.bookingId].id : undefined
@@ -50,6 +54,8 @@ export default class FormatReport {
 					63: b.owner.map(o => getBookingButton('owner', o.toUpperCase())).filter(o => o),
 					91: this.cache.get(b.voyageNumber),
 					108: b.shipper, // shipper
+					109: b.consignee, // consignee
+					110: b.notifyParty, // notify
 					116: b.freight.map(m => getBookingButton('freightTerm', m.toUpperCase())),
 					120: b.mark, // mark
 					130: this.cache.get(b.contract),
@@ -64,6 +70,9 @@ export default class FormatReport {
 					173: b.type.map(m => getBookingButton('type', m.toUpperCase())),
 					175: b.containers.filter(container => container.mension == '20').length,
 					176: b.containers.filter(container => container.mension == '40').length,
+					177: [1],
+					180: b.dropPort ? _.uniq(b.dropPort)[0] : undefined,
+					181: b.goods
 				},
 				method: this.post[b.bookingId] ? 'post' : 'patch',
 				recordId: this.patch[b.bookingId] ? this.patch[b.bookingId].id : undefined

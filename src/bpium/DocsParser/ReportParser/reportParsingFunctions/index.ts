@@ -139,6 +139,18 @@ export const owner = (data: string) => {
 	}
 }
 
+export const dropPort = ( data: string ) => {
+	if ( !data ) throw new Error( 'Empty port!' )
+	data = utils.clearString( data )
+	
+	const portReg = /\((?<port>\w*)\)/
+	const resp = data.match( portReg )
+	if ( resp ) {
+		let t
+	}
+	return resp ? resp.groups.port : undefined
+}
+
 
 
 /*

@@ -37,7 +37,7 @@ export default class GetBpium extends Request {
 			this.setFilter('new', filter)
 		}
 
-		this.url = `catalogs/${catalogId}/records`;
+		this.url = `catalogs/${catalogId}/records?withFieldsAdditional=true`;
 		return this.send(this.searchParams.filter)
 			.then(res => res.data)
 			.catch(err => console.log(err))

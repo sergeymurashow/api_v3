@@ -28,7 +28,7 @@ export default class ParseExcel {
 				return new ManifestParser( this.fileName ).parsed.map( m => Object.assign(m, {fileName: this.fileName}))
 				break;
 			case 'report':
-				return new ReportParser( this.fileName ).parsed.map( m => Object.assign(m, {fileName: this.fileName}))
+				return new ReportParser( this.fileName ).parsed//.map( m => Object.assign(m, {fileName: this.fileName}))
 				break;
 		}
 	}

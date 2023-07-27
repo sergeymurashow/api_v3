@@ -76,6 +76,11 @@ export default class GetContainerFromManifest implements Parser {
 		} catch (e) {
 			Errors.errLog(e)
 		}
+		try {
+			Object.assign(this.Parsed, { dropPort: containerParsingFunctions.dropPort(this.inputRow.CONTAINEROWNER) })
+		} catch (e) {
+			Errors.errLog(e)
+		}
 	}
 	get info() {
 		this.parse()

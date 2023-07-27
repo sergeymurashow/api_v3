@@ -27,7 +27,6 @@ export default class DocumentFormat {
 	connection: GetBpium;
 	constructor(bookingsCollection: Booking[]) {
 		this.bookingsCollection = bookingsCollection;
-		this.connection = new GetBpium();
 		this.cache = new Map();
 		this.bookingsCache = new Map();
 		this.bookingsCache.set('post', {})
@@ -100,17 +99,17 @@ export default class DocumentFormat {
 
 	async setContract() {
 
-		const contracts = _.uniq(this.bookingsCollection.map(m => m.contract).filter(c => c))
+		const contractsNumbers = _.uniq(this.bookingsCollection.map(m => m.contract).filter(c => c))
 
-		const resp = await new GetContract(contracts).contracts
-		if (!resp) return this;
-		resp.forEach(c => {
+		const contracts = await new GetContract(contractsNumbers).contracts
+		if (!contracts) return this;
+		contracts.forEach(c => {
 			this.cache.set(c.values[2].replace(/\s+.*/g, ''), 
 			[renameIdKey(c)]
 				.map(m => { return { recordId: m.recordId, catalogId: m.catalogId } })
 		)})
 
-		const emptyContracts = findEmptyItems(resp.map(m => m.values[2].replace(/\s+.*/g, '')), contracts)
+		const emptyContracts = findEmptyItems(contracts.map(m => m.values[2].replace(/\s+.*/g, '')), contractsNumbers)
 		if (emptyContracts.length) {
 			const promises = emptyContracts.map(async p => {
 				let postContracts = await new PostContract().addContract(p as string)
@@ -121,7 +120,10 @@ export default class DocumentFormat {
 
 			await Promise.all(promises)
 		}
+	}
 
+	async setClients() {
+		
 	}
 }
 

@@ -15,16 +15,26 @@ let requestCount: number = 0;
 let stopAfter: number = 1999;
 let cookie: string;
 
+type Trequest = {
+	url: string,
+	method: string,
+	data?: any,
+	headers?: any,
+	nullApiPath?: boolean,
+	baseUrl?: string,
+	filter?
+}
+
 class ConnectionController {
-	  constructor() {
+	constructor() {
 
-  }
-
-  private async auth(email: string = login, password: string = pass) {
-	if( requestCount >= stopAfter ) {
-		await new Promise(resolve => setTimeout(resolve, 1000 * 30));
-		requestCount = 0;
 	}
+
+	private async auth(email: string = login, password: string = pass) {
+		if (requestCount >= stopAfter) {
+			await new Promise(resolve => setTimeout(resolve, 1000 * 30));
+			requestCount = 0;
+		}
 		try {
 			const res = await axios({
 				baseURL,
@@ -42,20 +52,21 @@ class ConnectionController {
 		}
 	}
 
-	async request(input: {url: string, method: string, data?: any, headers?: any, filter?}) {
+	async request(input: Trequest) {
 
-		const { url, method, data, headers, filter } = input;
-
+		const { url, method, data, headers, filter, nullApiPath } = input;
+		
 		if (typeof cookie === 'undefined') { await this.auth() }
 		try {
-			if( requestCount >= stopAfter ) {
+			if (requestCount >= stopAfter) {
 				await new Promise(resolve => setTimeout(resolve, 1000 * 61));
 				requestCount = 0;
 			}
 			++requestCount;
+
 			return await axios({
-				baseURL: baseURL,
-				url: `${apiPath}/${url}`,
+				baseURL: input.baseUrl || baseURL,
+				url: nullApiPath ? url : `${apiPath}/${url}`,
 				method: method,
 				data: data,
 				headers: Object.assign(headers, { cookie: cookie }),

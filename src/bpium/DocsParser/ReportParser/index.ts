@@ -14,7 +14,7 @@ type ParseResult = Booking & {Errors: Array<string>}
 export default class ReportParser extends DocumentsParser {
 	constructor(params) {
 		super(params)
-		const renamedTable = new FindTableTitle(this.bigSheet, 'contract').getTable()
+		const renamedTable = new FindTableTitle(this.bigSheet, 'report').getTable()
 		this.table = renamedTable.table
 		this.startIndex = renamedTable.startIndex
 	}
@@ -23,7 +23,7 @@ export default class ReportParser extends DocumentsParser {
 
 		const getGroupedData = (containers: Container[]) => {
 
-			const toEject = [ 'mension', 'type', 'owner', 'freight']
+			const toEject = [ 'mension', 'type', 'owner', 'freight', 'dropPort']
 			const result: Omit<Container, 'number'> = {}
 
 			for ( let key of toEject ) {
@@ -35,12 +35,13 @@ export default class ReportParser extends DocumentsParser {
 				}
 			}
 
-			const { mension, type, owner, freight } = result
+			const { mension, type, owner, freight, dropPort } = result
 			return {
 				mension,
 				type,
 				owner,
 				freight,
+				dropPort,
 			}
 			
 		}

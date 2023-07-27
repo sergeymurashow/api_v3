@@ -84,3 +84,13 @@ export const seal = (data: string) => {
 	data = utils.clearString(data)
 	return data
 }
+
+export const dropPort = ( data: string ) => {
+	if ( !data ) throw new Error( 'Empty port!' )
+	data = utils.clearString( data )
+	
+	const portReg = /\((?<port>\w*)\)/
+	const resp = data.match( portReg )
+
+	return resp ? resp.groups.port : undefined
+}

@@ -1,12 +1,13 @@
 import _ from 'lodash'
 import { Matrix, Container, Headers } from '../../types'
 import * as parsingTools from './reportParsingFunctions'
+import { dropPort } from '../ManifestParser/manifestParsingFunctions/containerParsing.function'
 
 export type ContainersParse = {
 	type: string,
 	mension: string,
 	freight: string,
-	owner: string
+	owner: string,
 }
 
 export default function containersParse(data: Headers.Report): ContainersParse[] {
@@ -19,7 +20,7 @@ export default function containersParse(data: Headers.Report): ContainersParse[]
 		count: data.NUMBEROFCONTAINER,
 		type: data.TYPE,
 		freight: data.FREIGHTTERM,
-		owner: data.SOCCOC
+		owner: data.SOCCOC,
 	}) as ContainersParse[]
 	else {
 		const typesReg = /(\d)+[ -*Xx+](20|40)\w+/g
@@ -46,7 +47,8 @@ function containersGenerate({ count, type, freight, owner }) {
 			type: parsingTools.containerType(type),
 			mension: parsingTools.containersMension(type),
 			freight,
-			owner: parsingTools.owner(owner)
+			owner: parsingTools.owner(owner),
+			dropPort: parsingTools.dropPort(owner)
 		})
 	}
 	return resp

@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import { Method } from "..";
 import { Container, bookingFromBpium } from "../../types";
 import checkOnBpium from "./checkOnBpium.function";
