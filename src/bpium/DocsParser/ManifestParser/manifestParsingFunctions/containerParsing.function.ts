@@ -34,11 +34,6 @@ export const type = (data: string) => {
 	return containerType
 }
 
-export const remark = (data: string) => {
-	if (!data) throw new Error('Empty Remark!')
-	return data
-}
-
 export const gWeight = (data: string | number): string => {
 	if (!data) throw new Error('Empty gross weight!')
 	if (typeof data === 'number') data = data.toString()

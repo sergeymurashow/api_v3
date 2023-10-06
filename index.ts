@@ -19,7 +19,7 @@ app.use('/api/bpium', bpiumRouter)
 app.use('/api/1c', oneCRouter)
 
 const startMessage = `
-API version 3.0.2
+API version 3.0.8
 Running with params:
 ${configMessage()}
 `

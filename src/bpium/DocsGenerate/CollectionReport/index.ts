@@ -15,76 +15,82 @@ export default class CollectionReport {
 	voyageLink: {
 		catalogId: string,
 		recordId: string,
-		fieldId?: string | number,
+		fieldId: string | number,
 	}
 	mergedData
-	constructor( voyageLink: {
+	constructor(voyageLink: {
 		catalogId: string,
 		recordId: string,
-		fieldId?: string | number
-	} ) {
-		this.voyageLink = Object.assign( voyageLink, { fieldId: voyageLink.fieldId || 10 } )
-		this._bookings = getBookingsByVoyage( this.voyageLink )
-		this._containers = getContainers( this.voyageLink )
+		fieldId: string | number
+	}) {
+		this.voyageLink = voyageLink
+		this._bookings = getBookingsByVoyage(this.voyageLink)
+		this._containers = getContainers(this.voyageLink)
 	}
 
 	private prettyBookings() {
-		return this._bookings.then( (bookings: any) => bookings.map( (booking: any) => prettyBooking(booking.values) ) )
+		return this._bookings.then((bookings: any) => bookings.map((booking: any) => prettyBooking(booking.values)))
 	}
 
 	private prettyContainers() {
-		return this._containers.then( (containers: any) => containers.map( (container: any) => prettyContainer(container.values) ) )
+		return this._containers.then((containers: any) => containers.map((container: any) => prettyContainer(container.values)))
 	}
 
 	public async getCollection() {
 
-		if( !this._bookings || !this._containers ) return { status: 'There is no bookings', code: 200 }
+		if (!this._bookings || !this._containers) return { status: 'There is no bookings', code: 200 }
 
 		const { catalogId, recordId, fieldId } = this.voyageLink
 
 		const prettiedBookings = await this.prettyBookings()
 		const prettiedContainers = await this.prettyContainers()
 
-		this.mergedData = mergeData( prettiedBookings, prettiedContainers )
+		this.mergedData = mergeData(prettiedBookings, prettiedContainers)
 
-		const groupedData = _.groupBy( this.mergedData, 'from' )
-		
-		const filesDirs = []
+		const groupedData = _.groupBy(this.mergedData, 'from')
+
+		const filesDirs: string[] = []
 
 		for (const portFromKey in groupedData) {
-			let byPortFrom = groupedData[portFromKey]
-			const { from: portFrom, to: portTo, countryFrom, countryTo, vessel, voyageNumber: voyage } = byPortFrom[0]
-			const makeExcel = new MakeExcel( { portFrom, portTo, countryFrom, countryTo, vessel, voyage } )
-			byPortFrom.forEach( (booking: any) => makeExcel.setBooking(booking) )
-			const fileDir = makeExcel.makeFile()
+			try {
+				let byPortFrom = groupedData[portFromKey]
+				const { from: portFrom, to: portTo, countryFrom, countryTo, vessel, voyageNumber: voyage } = byPortFrom[0]
+				const makeExcel = new MakeExcel({ portFrom, portTo, countryFrom, countryTo, vessel, voyage })
+				byPortFrom.forEach((booking: any) => makeExcel.setBooking(booking))
+				const fileDir: string = makeExcel.makeFile() as string
 
-			filesDirs.push(fileDir)
+				filesDirs.push(fileDir)
+			} catch (error) {
+				console.error('filesDirsError', error)
+			}
 		}
 
-		const uploadFiles = await Promise.all(filesDirs.map( (fileDir: any) => {
+		console.log('filesDirs', filesDirs)
 
-			const uploadFile = new UploadFile( fileDir )
-			uploadFile.setOptions( catalogId, recordId, fieldId )
+		const uploadFiles = await Promise.all(filesDirs.map((fileDir: any) => {
+
+			const uploadFile = new UploadFile(fileDir)
+			uploadFile.setOptions(catalogId, recordId, fieldId)
 			return uploadFile.upload()
 
 		}))
 
 		const patchBpium = new PatchBpium()
 
-		const patch = await patchBpium.record( catalogId, recordId, { [fieldId]: uploadFiles.map( (file: any) => ({id: file.id}) ) },)
+		const patch = await patchBpium.record(catalogId, recordId, { [fieldId]: uploadFiles.map((file: any) => ({ id: file.id })) },)
 		return { status: 'OK', code: 200 }
 	}
 };
 
-(async () => {
-	const collectionReport = new CollectionReport(
-		{
-			catalogId: '139',
-			recordId: '97',
-			fieldId: 10
-		},
-	)
-	await collectionReport.getCollection()
-	console.log(collectionReport.mergedData)
-})();
+// (async () => {
+// 	const collectionReport = new CollectionReport(
+// 		{
+// 			catalogId: '139',
+// 			recordId: '108',
+// 			fieldId: 10
+// 		},
+// 	)
+// 	await collectionReport.getCollection()
+// 	console.log(collectionReport.mergedData)
+// })();
 

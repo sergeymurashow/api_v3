@@ -32,15 +32,18 @@ export default class GetBpium extends Request {
 	 * 2. { 'or': [ { fieldId: value_1 }, { fieldId: value_2 },
 	 * 	{ 'and': [ { fieldId: value_1 }, { fieldId: value_2 } ] } ], ... }
 	 */
-	records(catalogId: number | string, filter: filterParams = undefined) {
+	async records(catalogId: number | string, filter: filterParams = undefined) {
 		if (!!filter) {
 			this.setFilter('new', filter)
 		}
 
 		this.url = `catalogs/${catalogId}/records?withFieldsAdditional=true`;
-		return this.send(this.searchParams.filter)
-			.then(res => res.data)
-			.catch(err => console.log(err))
+		const response = await this.send(this.searchParams.filter)
+		if ( !response ) {
+			console.log('No response')
+			return null
+		}
+		return response.data
 	}
 
 	setFilter(action: actions, filter: filterParams) {
@@ -54,4 +57,3 @@ export default class GetBpium extends Request {
 
 	}
 }
-

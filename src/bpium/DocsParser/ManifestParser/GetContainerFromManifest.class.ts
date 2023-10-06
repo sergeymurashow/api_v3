@@ -72,11 +72,6 @@ export default class GetContainerFromManifest implements Parser {
 			Errors.errLog( e )
 		}
 		try {
-			Object.assign(this.Parsed, { remark: containerParsingFunctions.remark(this.inputRow.REMARK) })
-		} catch (e) {
-			Errors.errLog(e)
-		}
-		try {
 			Object.assign(this.Parsed, { dropPort: containerParsingFunctions.dropPort(this.inputRow.CONTAINEROWNER) })
 		} catch (e) {
 			Errors.errLog(e)

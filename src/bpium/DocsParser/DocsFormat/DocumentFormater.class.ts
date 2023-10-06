@@ -1,18 +1,17 @@
-import { Booking } from "../types";
-import GetBpium from "../Connection/GetBpium.class";
-import GetBooking from "../GetDataFromBpium/GetBooking.class";
-import GetPoints from "../GetDataFromBpium/GetPoints.class";
-import GetContract from "../GetDataFromBpium/GetContract.class";
-import GetVoyage from "../GetDataFromBpium/GetVoyage.class";
+import { Booking } from "../../types";
+import GetBpium from "../../Connection/GetBpium.class";
+import GetBooking from "../../GetDataFromBpium/GetBooking.class";
+import GetPoints from "../../GetDataFromBpium/GetPoints.class";
+import GetContract from "../../GetDataFromBpium/GetContract.class";
+import GetVoyage from "../../GetDataFromBpium/GetVoyage.class";
 
-import PostBooking from "../PostDataToBpium/PostBooking.class";
-import PostPoint from "../PostDataToBpium/PostPoint.class";
+import PostPoint from "../../PostDataToBpium/PostPoint.class";
 
 import findEmptyItems from "./findEmptyItems.function";
 
-import testBooking from '../../../testData/testBooking.json'
 import _ from "lodash";
-import PostContract from "../PostDataToBpium/PostReport.slass";
+import PostContract from "../../PostDataToBpium/PostReport.slass";
+import transcribeContractNumber from "../../utils/transcribeContractNumber";
 
 function renameIdKey(input: any): { recordId: string, catalogId: string } {
 	Object.assign(input, { recordId: input.id })
@@ -99,7 +98,7 @@ export default class DocumentFormat {
 
 	async setContract() {
 
-		const contractsNumbers = _.uniq(this.bookingsCollection.map(m => m.contract).filter(c => c))
+		const contractsNumbers = _.uniq(this.bookingsCollection.map(m => transcribeContractNumber(m.contract)).filter(c => c))
 
 		const contracts = await new GetContract(contractsNumbers).contracts
 		if (!contracts) return this;

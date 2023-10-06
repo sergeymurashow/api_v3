@@ -78,6 +78,11 @@ export const mark = (data: string) => {
 	return data
 }
 
+export const remark = (data: string) => {
+	if (!data) throw new Error('Empty Remark!')
+	return data
+}
+
 export const port = (data: string) => {
 	data = utils.clearString(data)
 	if (data) {
@@ -86,10 +91,10 @@ export const port = (data: string) => {
 		throw new Error('Wrong port!')
 	}
 }
-export const gWeight = (data: string | number): string => {
+export const gWeight = (data: string | number): number => {
 	if (!data) throw new Error('Empty gross weight!')
 	if (typeof data === 'number') data = data.toString()
-	return data.replace(/[^\d,.]/, '').replace(/\./, ',')
+	return +data.replace(/[^\d,.]/, '').replace(/\,/, '.')
 }
 
 /*

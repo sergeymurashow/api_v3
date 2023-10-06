@@ -1,6 +1,6 @@
 import { Booking, bookingFromBpium } from "../../../types";
 import { getRecordTitle, getRecordValues } from "../../../utils/bpiumDataUtils.function";
-import getBookingButton from "../../../DocsFormat/getBookingButton.function";
+import getBookingButton from "../../../DocsParser/DocsFormat/getBookingButton.function";
 
 type PrettyBooking = Booking & {
 	vessel: string,

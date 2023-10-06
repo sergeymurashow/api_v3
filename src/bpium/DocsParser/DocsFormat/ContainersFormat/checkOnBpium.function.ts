@@ -1,5 +1,5 @@
-import { Container, containerFieldFromBpium, recordValues } from "../../types";
-import GetContainer from "../../GetDataFromBpium/GetContainer.class";
+import { Container, containerFieldFromBpium, recordValues } from "../../../types";
+import GetContainer from "../../../GetDataFromBpium/GetContainer.class";
 
 export default async function checkOnBpium (containers: Container[], voyage) {
 	const resp = await new GetContainer(containers.map(m => m.number), voyage).containersData

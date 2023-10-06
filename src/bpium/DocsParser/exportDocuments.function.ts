@@ -2,12 +2,10 @@ import utils from '../utils'
 import Path from 'path'
 
 import ParseExcel from './ParseExcel.class'
-import DocsFormat from '../DocsFormat'
+import DocsFormat from './DocsFormat'
 import { Booking } from '../types'
-import FormatManifest from '../DocsFormat/FormatManifest.class'
 import UploadBooking from '../DocsUpload/UploadBooking.class'
 import UploadContainer from '../DocsUpload/UploadContainer.class'
-import FormatContainer from '../DocsFormat/ContainersFormat/FormatContainer.class'
 
 export default async function exportDocuments(data) {
 

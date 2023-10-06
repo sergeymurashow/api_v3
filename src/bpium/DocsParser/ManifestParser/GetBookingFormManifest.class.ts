@@ -62,11 +62,11 @@ export default class GetBookingFormManifest implements Parser {
 		} catch (e) {
 			Errors.errLog(e)
 		}
-		// try {
-		// 	Object.assign(this.Parsed, { remark: manifestParsingFunctions.remark(this.inputRow.REMARK) })
-		// } catch (e) {
-		// 	Errors.errLog(e)
-		// }
+		try {
+			Object.assign(this.Parsed, { remark: manifestParsingFunctions.remark(this.inputRow.REMARK) })
+		} catch (e) {
+			Errors.errLog(e)
+		}
 		try {
 			Object.assign(this.Parsed, { isManifest: true })
 		} catch (e) {

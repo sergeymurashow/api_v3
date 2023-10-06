@@ -30,6 +30,7 @@ bpiumRouter
 			const result = await DocsParser(req.body)
 			res.status(200).send(result)
 		} catch (e) {
+			console.error( e )
 			res.status(500).json(e)
 		}
 	})
@@ -37,12 +38,13 @@ bpiumRouter
 bpiumRouter
 .route('/documents/getReport')
 .post(jsonParser, async (req, res) => {
-	if( !req.body ) res.status(400).send('Bad request')
-	if( !req.body.payload ) res.status(400).send('There is no payload')
-	if( !req.body.payload.catalogId ) res.status(400).send('There is no catalogId')
-	if( !req.body.payload.recordId ) res.status(400).send('There is no recordId')
+	if( !req.body ) return res.status(400).send('Bad request')  
+	if( !req.body.payload ) return res.status(400).send('There is no payload')
+	if( !req.body.payload.catalogId ) return res.status(400).send('There is no catalogId')
+	if( !req.body.payload.recordId ) return res.status(400).send('There is no recordId')
 	try {
-		const result = await new CollectionReport(req.body.payload).getCollection()
+		const voyageLink = { catalogId: req.body.payload.catalogId, recordId: req.body.payload.recordId, fieldId: 10 }
+		const result = await new CollectionReport(voyageLink).getCollection()
 		res.status(200).send(result)
 	} catch (e) {
 		res.status(500).json(e)

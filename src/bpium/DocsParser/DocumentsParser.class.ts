@@ -63,14 +63,16 @@ export default class DocumentsParser {
 		}
 
 		this.colIndexes = this.makeColIndexes(table)
-		merged.forEach(merge => {
-			merge.s.c = this.colIndexes[merge.s.c]
-			merge.e.c = this.colIndexes[merge.e.c]
-		})
-		table.forEach((fo, fi, fa) => {
-			let merge = this.getMergeRow(fo.row, fo.col, merged)
-			fo.merge = merge
-		})
+		if (merged) {
+			merged.forEach(merge => {
+				merge.s.c = this.colIndexes[merge.s.c]
+				merge.e.c = this.colIndexes[merge.e.c]
+			})
+			table.forEach((fo, fi, fa) => {
+				let merge = this.getMergeRow(fo.row, fo.col, merged)
+				fo.merge = merge
+			})
+		}
 		return table
 		/* 
 		Need to remap merges
@@ -79,7 +81,7 @@ export default class DocumentsParser {
 
 	private makeColIndexes(table: BigSheet[]) {
 		let colIndexes = table.map(m => m.col)
-		colIndexes = _.uniq( colIndexes )
+		colIndexes = _.uniq(colIndexes)
 		return colIndexes.sort((a, b) => {
 			if (a.length > b.length) return 1
 			if (a.length < b.length) return -1

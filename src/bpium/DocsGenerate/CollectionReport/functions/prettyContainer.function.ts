@@ -1,4 +1,4 @@
-import getBookingButton from "../../../DocsFormat/getBookingButton.function";
+import getBookingButton from "../../../DocsParser/DocsFormat/getBookingButton.function";
 import { Container, containerFieldFromBpium } from "../../../types";
 import { getRecordTitle, formatDate, getRecordValues } from "../../../utils/bpiumDataUtils.function";
 
@@ -17,8 +17,8 @@ export default function prettyContainer(container: containerFieldFromBpium): Pre
 	try {
 		const result: PrettyContainer = {
 			'bookingId': container['21'].length ? getRecordTitle(container['21'])[0] : '',
-			'price': '',
-			'discount': '',
+			'price': container['19'] ?? 0,
+			'discount': container['18'] ?? 0,
 			'discountReason': '',
 			'rate': '',
 			'number': container['2'],

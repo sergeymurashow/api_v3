@@ -70,12 +70,12 @@ export default class GetBookingFromReport implements Parser {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { from: 'VOSTOCHNY' })
+			Object.assign(this.Parsed, { to: 'VOSTOCHNY' })
 		} catch (e) {
 			Errors.errLog(e)
 		}
 		try {
-			Object.assign(this.Parsed, { to: reportParsingFunctions.to(this.inputRow.POL) })
+			Object.assign(this.Parsed, { from: reportParsingFunctions.to(this.inputRow.POL) })
 		} catch (e) {
 			Errors.errLog(e)
 		}
@@ -99,7 +99,7 @@ export default class GetBookingFromReport implements Parser {
 		} catch (e) {
 			Errors.errLog(e)
 		}
-		console.log(Errors.getErrors())
+		console.log('Errors: ',Errors.getErrors())
 
 	}
 

@@ -64,14 +64,16 @@ class ConnectionController {
 			}
 			++requestCount;
 
-			return await axios({
+			const request = {
 				baseURL: input.baseUrl || baseURL,
 				url: nullApiPath ? url : `${apiPath}/${url}`,
 				method: method,
 				data: data,
 				headers: Object.assign(headers, { cookie: cookie }),
 				params: filter,
-			});
+			}
+
+			return await axios(request);
 		} catch (e) {
 			console.error(e)
 		}

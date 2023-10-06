@@ -1,6 +1,6 @@
 import { Booking, bookingsFromBpium } from "../types";
 import GetBpium from "../Connection/GetBpium.class";
-import getBookingButton from "../DocsFormat/getBookingButton.function";
+import getBookingButton from "../DocsParser/DocsFormat/getBookingButton.function";
 
 export default class GetBooking {
 	bookingIds: Array<string> 

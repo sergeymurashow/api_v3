@@ -1,4 +1,4 @@
-import { Booking, containerFieldFromBpium } from "../types";
+import { Booking, containerFieldFromBpium } from "../../types";
 import FormatManifest from "./FormatManifest.class";
 import FormatReport from "./FormatReport.class";
 

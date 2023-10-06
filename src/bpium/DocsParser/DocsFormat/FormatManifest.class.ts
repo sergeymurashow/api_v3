@@ -1,10 +1,10 @@
 import _ from "lodash";
 
-import GetBpium from "../Connection/GetBpium.class";
+import GetBpium from "../../Connection/GetBpium.class";
 import getBookingButton from "./getBookingButton.function";
 import DocumentFormat from "./DocumentFormater.class";
 
-import { Booking } from "../types";
+import { Booking } from "../../types";
 import { FormattedData, Method } from "./index";
 import FormatContainer from "./ContainersFormat/FormatContainer.class";
 
@@ -42,7 +42,7 @@ export default class FormatManifest{
 			const mension = b.mension.map(m => getBookingButton('mension', m.toUpperCase()))
 			const type = b.type.map(m => getBookingButton('type', m.toUpperCase()))
 			const applicationDate = b.applicationDate && b.applicationDate.length ? b.applicationDate : undefined
-			const contract = this.patch[b.bookingId] ? this.patch[b.bookingId].values[130] : undefined
+			const contract = this.patch[b.bookingId] ? this.patch[b.bookingId].values[130].map( m => ({ recordId: m.recordId, catalogId: m.catalogId })) : undefined
 
 			return {
 				data: {
@@ -89,7 +89,7 @@ export default class FormatManifest{
 					175: b.containers.filter(container => container.mension == '20').length,
 					176: b.containers.filter(container => container.mension == '40').length,
 					177: [2],
-					180: b.containers ? _.uniq(b.containers.filter(f => f.dropPort).map(m => m.dropPort)) : undefined,
+					180: b.containers ? _.uniq(b.containers.filter(f => f.dropPort).map(m => m.dropPort)).length ?? undefined : undefined,
 					181: b.goods
 				},
 				method: this.post[b.bookingId] ? 'post' : 'patch' as Method,

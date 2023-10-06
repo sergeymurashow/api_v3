@@ -85,12 +85,12 @@ export const containerType = (data: string) => {
 
 }
 
-export const gWeight = (data: string | number): string => {
+export const gWeight = (data: string | number): number => {
 	if (!data) {
 		return null
 	}
 	if (typeof data === 'number') data = data.toString()
-	return data.replace(/[^\d,.]/, '')
+	return +data.replace(/[^\d,.]/, '').replace(/\,/, '.')
 }
 
 export const shipper = (data: string) => {

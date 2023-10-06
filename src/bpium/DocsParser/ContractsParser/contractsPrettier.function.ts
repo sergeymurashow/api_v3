@@ -1,17 +1,13 @@
 import _ from "lodash"
 import { BigSheet } from "../DocumentsParser.class"
-import { number } from "../ManifestParser/manifestParsingFunctions/containerParsing.function"
 import transcribeContractNumber from "../../utils/transcribeContractNumber"
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 dayjs.extend(utc)
 dayjs.extend(customParseFormat)
-
-
 
 export default function prettier(data: BigSheet[]): any[] {
 	const result = {

@@ -1,6 +1,5 @@
-import { Booking, bookingsFromBpium } from "../types";
+import { bookingsFromBpium } from "../types";
 import GetBpium from "../Connection/GetBpium.class";
-import getBookingButton from "../DocsFormat/getBookingButton.function";
 
 export default class GetContract {
 	contractsNames: Array<string>
