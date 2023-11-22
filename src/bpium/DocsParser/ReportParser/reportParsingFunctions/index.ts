@@ -39,7 +39,7 @@ export const contract = (data: string) => {
 	} catch (e) {
 		throw new Error(`Contract Error: ${e}`)
 	}
-	const contractNumber = data //.replace(/[^0-9]+/, '')
+	const contractNumber = data
 	return contractNumber
 }
 
